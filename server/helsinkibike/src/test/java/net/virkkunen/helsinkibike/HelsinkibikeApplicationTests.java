@@ -1,10 +1,10 @@
-package net.virkkunen.helsinkicitybikeapp;
+package net.virkkunen.helsinkibike;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HelsinkiCityBikeAppApplicationTests {
+class HelsinkibikeApplicationTests {
 
 	@Test
 	void contextLoads() {

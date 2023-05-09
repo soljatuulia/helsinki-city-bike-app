@@ -1,4 +1,4 @@
-package net.virkkunen.helsinkicitybikeapp.models;
+package net.virkkunen.helsinkibike.entities;
 
 import java.time.LocalDateTime;
 
@@ -116,6 +116,79 @@ public class Journey {
   
   public void setDuration(Integer duration) {
     this.duration = duration;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((journeyId == null) ? 0 : journeyId.hashCode());
+    result = prime * result + ((departureTime == null) ? 0 : departureTime.hashCode());
+    result = prime * result + ((returnTime == null) ? 0 : returnTime.hashCode());
+    result = prime * result + ((departureStationId == null) ? 0 : departureStationId.hashCode());
+    result = prime * result + ((departureStationName == null) ? 0 : departureStationName.hashCode());
+    result = prime * result + ((returnStationId == null) ? 0 : returnStationId.hashCode());
+    result = prime * result + ((returnStationName == null) ? 0 : returnStationName.hashCode());
+    result = prime * result + ((distance == null) ? 0 : distance.hashCode());
+    result = prime * result + ((duration == null) ? 0 : duration.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Journey other = (Journey) obj;
+    if (journeyId == null) {
+      if (other.journeyId != null)
+        return false;
+    } else if (!journeyId.equals(other.journeyId))
+      return false;
+    if (departureTime == null) {
+      if (other.departureTime != null)
+        return false;
+    } else if (!departureTime.equals(other.departureTime))
+      return false;
+    if (returnTime == null) {
+      if (other.returnTime != null)
+        return false;
+    } else if (!returnTime.equals(other.returnTime))
+      return false;
+    if (departureStationId == null) {
+      if (other.departureStationId != null)
+        return false;
+    } else if (!departureStationId.equals(other.departureStationId))
+      return false;
+    if (departureStationName == null) {
+      if (other.departureStationName != null)
+        return false;
+    } else if (!departureStationName.equals(other.departureStationName))
+      return false;
+    if (returnStationId == null) {
+      if (other.returnStationId != null)
+        return false;
+    } else if (!returnStationId.equals(other.returnStationId))
+      return false;
+    if (returnStationName == null) {
+      if (other.returnStationName != null)
+        return false;
+    } else if (!returnStationName.equals(other.returnStationName))
+      return false;
+    if (distance == null) {
+      if (other.distance != null)
+        return false;
+    } else if (!distance.equals(other.distance))
+      return false;
+    if (duration == null) {
+      if (other.duration != null)
+        return false;
+    } else if (!duration.equals(other.duration))
+      return false;
+    return true;
   }
 
 }

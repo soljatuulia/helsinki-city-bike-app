@@ -1,4 +1,4 @@
-package net.virkkunen.helsinkicitybikeapp.models;
+package net.virkkunen.helsinkibike.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
