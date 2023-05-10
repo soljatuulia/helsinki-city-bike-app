@@ -15,23 +15,23 @@ public class Journey {
   
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
-  @Column(name="journey_id")
+  @Column(name = "journey_id")
   private Integer journeyId;
-  @Column(name="departure")
+  @Column(name = "departure")
   private LocalDateTime departureTime;
-  @Column(name="return")
+  @Column(name = "return")
   private LocalDateTime returnTime;
-  @Column(name="departure_station_id")
+  @Column(name = "departure_station_id")
   private Integer departureStationId;
-  @Column(name="departure_station_name")
+  @Column(name = "departure_station_name", nullable = false)
   private String departureStationName;
-  @Column(name="return_station_id")
+  @Column(name = "return_station_id")
   private Integer returnStationId;
-  @Column(name="return_station_name")
+  @Column(name = "return_station_name", nullable = false)
   private String returnStationName;
-  @Column(name="distance")
+  @Column(name = "distance", nullable = false)
   private Integer distance;
-  @Column(name="duration")
+  @Column(name = "duration", nullable = false)
   private Integer duration;
 
   public Integer getJourneyId() {

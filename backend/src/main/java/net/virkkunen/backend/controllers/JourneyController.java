@@ -2,7 +2,9 @@ package net.virkkunen.backend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,15 +21,65 @@ public class JourneyController {
 
   @Autowired
   JourneyRepository journeyRepo;
-/*
-  @GetMapping("/journeys")
-  public List<Journey> getAll() {
-    return jrepo.findAll();
-  }
-*/
 
   @GetMapping(value="/journeys")
-  public Page<Journey> getTrips (Pageable pageable) {
+  public Page<Journey> getJourneys (Pageable pageable) {
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable);
+    return journeys;
+  }
+
+  @GetMapping(value="journeys/departureasc")
+  public Page<Journey> getJourneysByDepartureAsc() {
+    Pageable pageable = PageRequest.of(10, 10, Sort.by("departureStationName").ascending());
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable);
+    return journeys;
+  }
+
+  @GetMapping(value="journeys/departuredesc")
+  public Page<Journey> getJourneysByDepartureDesc() {
+    Pageable pageable = PageRequest.of(10, 10, Sort.by("departureStationName").descending());
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable);
+    return journeys;
+  }
+
+  @GetMapping(value="journeys/returnasc")
+  public Page<Journey> getJourneysByReturnAsc() {
+    Pageable pageable = PageRequest.of(10, 10, Sort.by("returnStationName").ascending());
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable);
+    return journeys;
+  }
+
+  @GetMapping(value="journeys/returndesc")
+  public Page<Journey> getJourneysByReturnDesc() {
+    Pageable pageable = PageRequest.of(10, 10, Sort.by("returnStationName").descending());
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable);
+    return journeys;
+  }
+
+  @GetMapping(value="journeys/durationasc")
+  public Page<Journey> getJourneysByDurationAsc() {
+    Pageable pageable = PageRequest.of(10, 10, Sort.by("durationInMin").ascending());
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable);
+    return journeys;
+  }
+
+  @GetMapping(value="journeys/durationdesc")
+  public Page<Journey> getJourneysByDurationDesc() {
+    Pageable pageable = PageRequest.of(10, 10, Sort.by("durationInMin").descending());
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable);
+    return journeys;
+  }
+
+  @GetMapping(value="journeys/distanceasc")
+  public Page<Journey> getJourneysByDistanceAsc() {
+    Pageable pageable = PageRequest.of(10, 10, Sort.by("distanceInKm").ascending());
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable);
+    return journeys;
+  }
+
+  @GetMapping(value="journeys/distancedesc")
+  public Page<Journey> getJourneysByDistanceDesc() {
+    Pageable pageable = PageRequest.of(10, 10, Sort.by("distanceInKm").descending());
     Page<Journey> journeys = journeyRepo.listJourneys(pageable);
     return journeys;
   }
