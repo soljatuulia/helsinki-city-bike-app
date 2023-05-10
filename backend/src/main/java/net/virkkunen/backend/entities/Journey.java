@@ -7,8 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="journey")
 public class Journey {
   
   @Id
@@ -31,20 +33,6 @@ public class Journey {
   private Integer distance;
   @Column(name="duration")
   private Integer duration;
-  
-  public Journey(Integer journeyId, LocalDateTime departureTime, LocalDateTime returnTime, Integer departureStationId,
-      String departureStationName, Integer returnStationId, String returnStationName, Integer distance,
-      Integer duration) {
-    this.journeyId = journeyId;
-    this.departureTime = departureTime;
-    this.returnTime = returnTime;
-    this.departureStationId = departureStationId;
-    this.departureStationName = departureStationName;
-    this.returnStationId = returnStationId;
-    this.returnStationName = returnStationName;
-    this.distance = distance;
-    this.duration = duration;
-  }
 
   public Integer getJourneyId() {
     return journeyId;
