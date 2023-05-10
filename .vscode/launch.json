@@ -2,13 +2,11 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Spring Boot-HelsinkiCityBikeAppApplication<helsinkicitybikeapp>",
+      "name": "HelsinkibikeApplication",
       "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "mainClass": "net.virkkunen.helsinkicitybikeapp.HelsinkiCityBikeAppApplication",
-      "projectName": "helsinkicitybikeapp",
-      "args": "",
-      "envFile": "${workspaceFolder}/.env"
-    }
+      "mainClass": "net.virkkunen.helsinkibike.HelsinkibikeApplication",
+      "projectName": "helsinkibike",
+      "vmArgs": "--enable-preview"
+    },
   ]
 }
