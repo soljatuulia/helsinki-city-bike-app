@@ -29,59 +29,10 @@ public class JourneyController {
     return journeys;
   }
 
-  @GetMapping(value="journeys/departureasc")
-  public Page<Journey> getJourneysByDepartureAsc(@RequestParam(defaultValue="") String filter) {
-    Pageable pageable = PageRequest.of(10, 10, Sort.by("departureStationName").ascending());
-    Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
-    return journeys;
-  }
-
-  @GetMapping(value="journeys/departuredesc")
-  public Page<Journey> getJourneysByDepartureDesc(@RequestParam(defaultValue="") String filter) {
-    Pageable pageable = PageRequest.of(10, 10, Sort.by("departureStationName").descending());
-    Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
-    return journeys;
-  }
-
-  @GetMapping(value="journeys/returnasc")
-  public Page<Journey> getJourneysByReturnAsc(@RequestParam(defaultValue="") String filter) {
-    Pageable pageable = PageRequest.of(10, 10, Sort.by("returnStationName").ascending());
-    Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
-    return journeys;
-  }
-
-  @GetMapping(value="journeys/returndesc")
-  public Page<Journey> getJourneysByReturnDesc(@RequestParam(defaultValue="") String filter) {
-    Pageable pageable = PageRequest.of(10, 10, Sort.by("returnStationName").descending());
-    Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
-    return journeys;
-  }
-
-  @GetMapping(value="journeys/durationasc")
-  public Page<Journey> getJourneysByDurationAsc(@RequestParam(defaultValue="") String filter) {
-    Pageable pageable = PageRequest.of(10, 10, Sort.by("durationInMin").ascending());
-    Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
-    return journeys;
-  }
-
-  @GetMapping(value="journeys/durationdesc")
-  public Page<Journey> getJourneysByDurationDesc(@RequestParam(defaultValue="") String filter) {
-    Pageable pageable = PageRequest.of(10, 10, Sort.by("durationInMin").descending());
-    Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
-    return journeys;
-  }
-
-  @GetMapping(value="journeys/distanceasc")
-  public Page<Journey> getJourneysByDistanceAsc(@RequestParam(defaultValue="") String filter) {
-    Pageable pageable = PageRequest.of(10, 10, Sort.by("distanceInKm").ascending());
-    Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
-    return journeys;
-  }
-
-  @GetMapping(value="journeys/distancedesc")
-  public Page<Journey> getJourneysByDistanceDesc(@RequestParam(defaultValue="") String filter) {
-    Pageable pageable = PageRequest.of(10, 10, Sort.by("distanceInKm").descending());
-    Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
+  @GetMapping(value="journeys/sort")
+  public Page<Journey> sortJourneys(@RequestParam(defaultValue = "") String sorter) {
+    Pageable pageable = PageRequest.of(10, 10, Sort.by(sorter).descending());
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable, sorter);
     return journeys;
   }
 
