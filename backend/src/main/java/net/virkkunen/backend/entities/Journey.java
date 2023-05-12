@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name="journey")
@@ -17,9 +18,9 @@ public class Journey {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   @Column(name = "journey_id")
   private Integer journeyId;
-  @Column(name = "departure")
+  @Column(name = "departure_time")
   private LocalDateTime departureTime;
-  @Column(name = "return")
+  @Column(name = "return_time")
   private LocalDateTime returnTime;
   @Column(name = "departure_station_id")
   private Integer departureStationId;
@@ -29,10 +30,25 @@ public class Journey {
   private Integer returnStationId;
   @Column(name = "return_station_name", nullable = false)
   private String returnStationName;
-  @Column(name = "distance", nullable = false)
+  @Min(10)
+  @Column(name = "distance")
   private Integer distance;
-  @Column(name = "duration", nullable = false)
+  @Min(10)
+  @Column(name = "duration")
   private Integer duration;
+
+  public Journey(LocalDateTime departureTime, LocalDateTime returnTime, Integer departureStationId,
+      String departureStationName, Integer returnStationId, String returnStationName, Integer distance,
+      Integer duration) {
+    this.departureTime = departureTime;
+    this.returnTime = returnTime;
+    this.departureStationId = departureStationId;
+    this.departureStationName = departureStationName;
+    this.returnStationId = returnStationId;
+    this.returnStationName = returnStationName;
+    this.distance = distance;
+    this.duration = duration;
+  }
 
   public Integer getJourneyId() {
     return journeyId;

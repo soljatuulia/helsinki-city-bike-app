@@ -8,35 +8,52 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="station")
+@Table(name = "station")
 public class Station {
   
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name="station_id")
   private Integer stationId;
-  @Column(name="journey_station_id")
+  @Column(name = "journey_station_id", nullable = false)
   private Integer journeyStationId;  
-  @Column(name="name_finnish")
+  @Column(name = "name_finnish", nullable = false)
   private String name;  
-  @Column(name="name_swedish")
+  @Column(name = "name_swedish")
   private String nameSwedish;  
-  @Column(name="address_finnish")
+  @Column(name = "address_finnish", nullable = false)
   private String address;  
-  @Column(name="address_swedish")
+  @Column(name = "address_swedish")
   private String addressSwedish;  
-  @Column(name="city_finnish")
+  @Column(name = "city_finnish")
   private String city;  
-  @Column(name="city_swedish")
+  @Column(name = "city_swedish")
   private String citySwedish;  
-  @Column(name="operator")
+  @Column(name = "operator")
   private String operator;  
-  @Column(name="capacity")
+  @Column(name = "capacity")
   private Integer capacity;  
-  @Column(name="x")
+  @Column(name = "x")
   private Double x;  
-  @Column(name="y")
+  @Column(name = "y")
   private Double y;
+
+  
+
+  public Station(Integer journeyStationId, String name, String nameSwedish, String address, String addressSwedish,
+      String city, String citySwedish, String operator, Integer capacity, Double x, Double y) {
+    this.journeyStationId = journeyStationId;
+    this.name = name;
+    this.nameSwedish = nameSwedish;
+    this.address = address;
+    this.addressSwedish = addressSwedish;
+    this.city = city;
+    this.citySwedish = citySwedish;
+    this.operator = operator;
+    this.capacity = capacity;
+    this.x = x;
+    this.y = y;
+  }
 
   public Integer getStationId() {
     return stationId;
@@ -224,5 +241,11 @@ public class Station {
       return false;
     return true;
   }
+
+  @Override
+  public String toString() {
+    return "Station [name=" + name + ", address=" + address + ", city=" + city + "]";
+  }
  
+  
 }
