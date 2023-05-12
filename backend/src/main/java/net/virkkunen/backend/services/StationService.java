@@ -54,14 +54,16 @@ public class StationService {
               String city = fields[7];
               String citySwedish = fields[8];
               String operator = fields[9];
-              Integer capacity = Integer.parseInt(fields[10]);
+              Integer capacity = Integer.validateIntegerField(fields[10]);
               Double x = Double.parseDouble(fields[11]);
               Double y = Double.parseDouble(fields[12]);
             
-              Station station = new Station(journeyStationId, name, nameSwedish, address, addressSwedish, city,
+              if (journeyStationId > 0) {
+                Station station = new Station(journeyStationId, name, nameSwedish, address, addressSwedish, city,
                       citySwedish, operator, capacity, x, y);
             
-              stations.add(station);
+                stations.add(station);
+              }
             } catch (NumberFormatException ex) {
               ex.printStackTrace();
             }
@@ -70,4 +72,15 @@ public class StationService {
         stationRepository.saveAll(stations);
     }
   }
+
+  private Integer validateIntegerField(String field) {
+    if (field == null || field.isEmpty()) {
+        return null;
+    }
+    try {
+        return Integer.parseInt(field.trim());
+    } catch (NumberFormatException ex) {
+        ex.printStackTrace();
+        return null;
+    }
 }

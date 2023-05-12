@@ -57,7 +57,7 @@ public class JourneyService {
               Integer distance = Integer.parseInt(fields[6]);
               Integer duration = Integer.parseInt(fields[7]);
 
-              if (distance >= 10 & duration >= 10) {            
+              if (departureTime.isBefore(returnTime) & departureStationId > 0 & distance >= 10 & duration >= 10) {            
                 Journey journey = new Journey(departureTime, returnTime, departureStationId,
                 departureStationName, returnStationId, returnStationName, distance,
                 duration);
