@@ -195,4 +195,12 @@ public class Journey {
     return true;
   }
 
+  @Override
+  public String toString() {
+    return "Journey [departureTime=" + departureTime + ", returnTime=" + returnTime + ", departureStationName="
+        + departureStationName + ", returnStationName=" + returnStationName + "]";
+  }
+
+  
+
 }

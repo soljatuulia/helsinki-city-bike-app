@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +24,11 @@ public class JourneyService {
     @Autowired
     private JourneyRepository journeyRepository;
 
-    @Transactional
     @PostConstruct
     public void init() throws IOException {
       try {
-        saveJourneysFromCsv("C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeys.csv");
+        System.out.println("We are in JourneyService init()");
+        saveJourneysFromCsv("C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeyslist.csv");
       } catch (IOException ex) {
         ex.printStackTrace();
       }
@@ -64,12 +65,16 @@ public class JourneyService {
 
                 journeys.add(journey);
               }
-            } catch (NumberFormatException ex) {
-              ex.printStackTrace();
-          }
-        }
-        br.close();
-        journeyRepository.saveAll(journeys);
-    }
 
+            } catch (NumberFormatException numEx) {
+              numEx.printStackTrace();
+            } catch (DateTimeParseException dateEx) {
+              dateEx.printStackTrace();
+            }
+        }
+
+        journeyRepository.saveAll(journeys);
+        br.close();
+
+    }
 }

@@ -38,7 +38,7 @@ public class Station {
   @Column(name = "y")
   private Double y;
 
-  
+  public Station() {}
 
   public Station(Integer journeyStationId, String name, String nameSwedish, String address, String addressSwedish,
       String city, String citySwedish, String operator, Integer capacity, Double x, Double y) {
