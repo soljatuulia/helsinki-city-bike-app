@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import StationList from './components/StationList';
 
-export default App;
+import stations from './services/stationService';
+import { initializeStations } from './reducers/stationReducer';
+
+const App = () => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
+  console.log('Before useEffect');
+
+  useEffect(() => {
+    console.log('In useEffect');
+    dispatch(initializeStations(stations));
+    setLoading(false);
+  }, [dispatch]);
+
+  return (
+    <div>
+    <h2>Stations</h2>
+    {loading ? (
+    <p>Loading...</p>
+    ) : (
+    <StationList />
+    )}
+    </div>
+    );
+    };
+
+    export default App;
