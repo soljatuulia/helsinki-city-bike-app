@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
 
-const StationList = () => {
+const StationList = () => {  
   const stations = useSelector(state => {
-    console.log('State in StationList' + JSON.stringify(state.station.stations));
+    //console.log('State in StationList' + JSON.stringify(state.station.stations));
     return state.station.stations;
   });
 
-  console.log('We are in StationList, here are the stations: ', stations);
+  //console.log('We are in StationList, here are the stations: ', stations);
 
   return (
     <div>

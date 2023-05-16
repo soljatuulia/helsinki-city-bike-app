@@ -16,10 +16,10 @@ const stationSlice = createSlice({
   reducers: {
     setStations(state, action) {
       const { content, totalPages, totalElements, pageable } = action.payload;
-      console.log('setStations content:', content);
-      console.log('setStations totalPages:', totalPages);
-      console.log('setStations totalElements:', totalElements);
-      console.log('setStations pageable:', pageable);
+      //console.log('setStations content:', content);
+      //console.log('setStations totalPages:', totalPages);
+      //console.log('setStations totalElements:', totalElements);
+      //console.log('setStations pageable:', pageable);
       
       return {
         ...state,
@@ -37,7 +37,6 @@ const stationSlice = createSlice({
 export const initializeStations = () => {
   return async dispatch => {
     const stations = await stationService.getAll();
-    console.log('initializeStations: ', stations);
     const payload = {
       content: stations.content,
       totalPages: stations.totalPages,
@@ -48,6 +47,7 @@ export const initializeStations = () => {
     dispatch(setStations(payload));
   };
 };
+
 
 export const { setStations } = stationSlice.actions;
 export default stationSlice.reducer;

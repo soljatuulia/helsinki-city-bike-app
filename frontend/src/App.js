@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import StationList from './components/StationList';
+import JourneyList from './components/JourneyList';
 
 import stations from './services/stationService';
+import journeys from './services/journeyService';
 import { initializeStations } from './reducers/stationReducer';
+import { initializeJourneys } from './reducers/journeyReducer';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -15,6 +18,7 @@ const App = () => {
   useEffect(() => {
     console.log('In useEffect');
     dispatch(initializeStations(stations));
+    dispatch(initializeJourneys(journeys));
     setLoading(false);
   }, [dispatch]);
 
@@ -23,7 +27,7 @@ const App = () => {
     {loading ? (
     <p>Loading...</p>
     ) : (
-    <StationList />
+    <JourneyList />
     )}
     </div>
     );
