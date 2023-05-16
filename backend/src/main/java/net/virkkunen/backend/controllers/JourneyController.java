@@ -17,7 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import net.virkkunen.backend.entities.Journey;
 import net.virkkunen.backend.repositories.JourneyRepository;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class JourneyController {
@@ -25,20 +25,24 @@ public class JourneyController {
   @Autowired
   JourneyRepository journeyRepo;
 
-  @GetMapping(value="/journeys")
-  public Page<Journey> getJourneys (Pageable pageable, @RequestParam(defaultValue="") String filter) {
+  @GetMapping(value = "/journeys", produces = "application/json")
+  public Page<Journey> getJourneys (@RequestParam(value = "page", defaultValue = "0") int pageNumber,
+    @RequestParam(value = "size", defaultValue = "10") int pageSize, 
+    @RequestParam(defaultValue="") String filter) {
+    
+    Pageable pageable = PageRequest.of(pageNumber, pageSize);
     Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
     return journeys;
   }
 
-  @GetMapping(value="journeys/sort")
+  @GetMapping(value = "journeys/sort")
   public Page<Journey> sortJourneys(@RequestParam(defaultValue = "") String sorter) {
     Pageable pageable = PageRequest.of(10, 10, Sort.by(sorter).descending());
     Page<Journey> journeys = journeyRepo.listJourneys(pageable, sorter);
     return journeys;
   }
 
-  @GetMapping("/journeys/{id}")
+  @GetMapping(value = "/journeys/{id}")
   Journey get(@PathVariable int id) {
       Journey journey = journeyRepo.findById(id).orElse(null);
       if (journey==null) {
