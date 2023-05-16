@@ -3,7 +3,10 @@ import stationService from '../services/stationService';
 
 const initialState = {
   stations: {
-    content: []
+    content: [],
+    totalPages: 0,
+    totalElements: 0,
+    pageable: {}
   }
 };
 
@@ -11,9 +14,22 @@ const stationSlice = createSlice({
   name: 'stations', 
   initialState,
   reducers: {
-    setStations(state = initialState, action) {
-      console.log('setStations action.payload.content: ', action.payload.content);
-      return { stations: action.payload.content };
+    setStations(state, action) {
+      const { content, totalPages, totalElements, pageable } = action.payload;
+      console.log('setStations content:', content);
+      console.log('setStations totalPages:', totalPages);
+      console.log('setStations totalElements:', totalElements);
+      console.log('setStations pageable:', pageable);
+      
+      return {
+        ...state,
+        stations: {
+          content,
+          totalPages,
+          totalElements,
+          pageable
+        }
+      };
     }
   }
 });
@@ -22,7 +38,14 @@ export const initializeStations = () => {
   return async dispatch => {
     const stations = await stationService.getAll();
     console.log('initializeStations: ', stations);
-    dispatch(setStations(stations));
+    const payload = {
+      content: stations.content,
+      totalPages: stations.totalPages,
+      totalElements: stations.totalElements,
+      pageable: stations.pageable
+    };
+
+    dispatch(setStations(payload));
   };
 };
 

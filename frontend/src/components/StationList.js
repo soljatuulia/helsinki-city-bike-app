@@ -16,13 +16,15 @@ const StationList = () => {
           <tr>
             <th>Name</th>
             <th>Address</th>
+            <th>Capacity</th>
           </tr>
         </thead>
         <tbody>
-          {stations.map(station => (
+          {stations.content.map(station => (
             <tr key={station.stationId}>
               <td>{station.name}</td>
               <td>{station.address}</td>
+              <td>{station.capacity}</td>
             </tr>
           ))}
         </tbody>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import './App.css';
 
 import StationList from './components/StationList';
 
@@ -21,7 +20,6 @@ const App = () => {
 
   return (
     <div>
-    <h2>Stations</h2>
     {loading ? (
     <p>Loading...</p>
     ) : (
