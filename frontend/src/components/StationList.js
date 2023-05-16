@@ -1,12 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchStationDetails } from '../reducers/stationReducer';
 
-const StationList = () => {  
-  const stations = useSelector(state => {
-    //console.log('State in StationList' + JSON.stringify(state.station.stations));
-    return state.station.stations;
-  });
+const StationList = () => {
+  const dispatch = useDispatch();
+  const stations = useSelector((state) => state.station.stations);
+  const stationDetails = useSelector((state) => state.station.stationDetails);
 
-  //console.log('We are in StationList, here are the stations: ', stations);
+  const handleShowDetails = (stationId) => {
+    dispatch(fetchStationDetails(stationId));
+  };
 
   return (
     <div>
@@ -17,18 +19,33 @@ const StationList = () => {
             <th>Name</th>
             <th>Address</th>
             <th>Capacity</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {stations.content.map(station => (
+          {stations.content.map((station) => (
             <tr key={station.stationId}>
               <td>{station.name}</td>
               <td>{station.address}</td>
               <td>{station.capacity}</td>
+              <td>
+                <button onClick={() => handleShowDetails(station.stationId)}>
+                  Show Details
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {stationDetails && (
+        <div>
+          <h2>Station Details</h2>
+          <p>Name: {stationDetails.name}</p>
+          <p>Address: {stationDetails.address}</p>
+          <p>Total Departures: {stationDetails.totalDepartures}</p>
+          <p>Total Returns: {stationDetails.totalReturns}</p>
+        </div>
+      )}
     </div>
   );
 };

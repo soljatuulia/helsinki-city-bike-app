@@ -7,7 +7,8 @@ const initialState = {
     totalPages: 0,
     totalElements: 0,
     pageable: {}
-  }
+  },
+  stationDetails: null
 };
 
 const stationSlice = createSlice({
@@ -30,6 +31,9 @@ const stationSlice = createSlice({
           pageable
         }
       };
+    },
+    setSelectedStationDetails(state, action) {
+      state.stationDetails = action.payload;
     }
   }
 });
@@ -48,6 +52,16 @@ export const initializeStations = () => {
   };
 };
 
+export const fetchStationDetails = (stationId) => {
+  return async (dispatch) => {
+    try {
+      const stationDetails = await stationService.getStationDetails(stationId);
+      dispatch(setSelectedStationDetails(stationDetails));
+    } catch (error) {
+      console.log('Error fetching station details:', error);
+    }
+  };
+};
 
-export const { setStations } = stationSlice.actions;
+export const { setStations, setSelectedStationDetails } = stationSlice.actions;
 export default stationSlice.reducer;
