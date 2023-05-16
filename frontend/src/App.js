@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Routes, Route, Link
+} from 'react-router-dom';
 
+import Menu from './components/Menu';
+import Start from './components/Start';
 import StationList from './components/StationList';
 import JourneyList from './components/JourneyList';
 
@@ -13,6 +19,7 @@ const App = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
+
   console.log('Before useEffect');
 
   useEffect(() => {
@@ -24,11 +31,14 @@ const App = () => {
 
   return (
     <div>
-    {loading ? (
-    <p>Loading...</p>
-    ) : (
-    <JourneyList />
-    )}
+      <Menu /><br />
+      
+      <Routes>
+        <Route path="/" element={<Start />} />
+        <Route path="/journeys" element={<JourneyList />} />
+        <Route path="/stations" element={<StationList />} />
+      </Routes>
+
     </div>
     );
     };
