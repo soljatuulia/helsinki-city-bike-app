@@ -5,7 +5,7 @@ const Menu = () => {
 
   return (
     <div>
-      <Navbar collapseOnSelect expand="lg" bg="warning" variant="light">
+      <Navbar collapseOnSelect expand="md" bg="warning" variant="light">
         <Navbar.Brand
           as={Link}
           to="/" 

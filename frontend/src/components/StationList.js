@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchStationDetails } from '../reducers/stationReducer';
-import { Table, Button } from 'react-bootstrap';
+import { fetchStationDetails, setSelectedStationDetails } from '../reducers/stationReducer';
+import { Table, NavLink, Modal } from 'react-bootstrap';
 
 const StationList = () => {
   const dispatch = useDispatch();
@@ -11,6 +11,10 @@ const StationList = () => {
     dispatch(fetchStationDetails(stationId));
   };
 
+  const handleCloseDetails = () => {
+    dispatch(setSelectedStationDetails(null));
+  };
+
   return (
     <div style={{ width: "90%", margin: "0 auto" }}>
       <h2 style={{ textAlign: "center", margin: "20px auto auto" }}>Stations</h2>
@@ -18,13 +22,13 @@ const StationList = () => {
         variant="default"
         style={{ width:"100%", margin: "20px auto" }}
         striped
+        hover
         responsive>
         <thead>
           <tr>
             <th>Name</th>
             <th>Address</th>
-            <th>Capacity</th>
-            <th>Details</th>
+            <th>Info</th>
           </tr>
         </thead>
         <tbody>
@@ -32,26 +36,34 @@ const StationList = () => {
             <tr key={station.stationId}>
               <td>{station.name}</td>
               <td>{station.address}</td>
-              <td>{station.capacity}</td>
               <td>
-                <Button onClick={() => handleShowDetails(station.stationId)}>
-                  Show Details
-                </Button>
+                <NavLink
+                  value={station.stationId}
+                  onClick={() => handleShowDetails(station.stationId)}
+                >
+                  station info
+                </NavLink>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>  
-      {stationDetails && (
+      </Table>
+      <Modal show={!!stationDetails} onHide={handleCloseDetails}>
+        <Modal.Header closeButton>
+          <Modal.Title>Station Details</Modal.Title>
+       </Modal.Header>
+      <Modal.Body>
+        {stationDetails && (
         <div>
-          <h2>Station Details</h2>
-          <p>Name: {stationDetails.name}</p>
-          <p>Address: {stationDetails.address}</p>
-          <p>Total Departures: {stationDetails.totalDepartures}</p>
-          <p>Total Returns: {stationDetails.totalReturns}</p>
+          <p><b>Name:</b> {stationDetails.name}</p>
+          <p><b>Address:</b> {stationDetails.address}</p>
+          <p><b>Total Departures:</b> {stationDetails.totalDepartures}</p>
+          <p><b>Total Returns:</b> {stationDetails.totalReturns}</p>
         </div>
-      )}
-    </div>
+        )}
+      </Modal.Body>
+    </Modal>
+  </div>
   );
 };
 

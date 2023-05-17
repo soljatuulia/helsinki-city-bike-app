@@ -16,6 +16,7 @@ const JourneyList = () => {
         variant="default"
         style={{ width:"100%", margin: "20px auto" }}
         striped
+        hover
         responsive>
         <thead>
           <tr>
