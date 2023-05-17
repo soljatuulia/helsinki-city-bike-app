@@ -40,8 +40,9 @@ const StationList = () => {
                 <NavLink
                   value={station.stationId}
                   onClick={() => handleShowDetails(station.stationId)}
+                  style={{ color: "DarkGoldenRod" }}
                 >
-                  station info
+                  station details
                 </NavLink>
               </td>
             </tr>

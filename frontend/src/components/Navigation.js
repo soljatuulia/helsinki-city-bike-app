@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
-const Menu = () => {
+const Navigation = () => {
 
   return (
     <div>
@@ -10,7 +10,7 @@ const Menu = () => {
           as={Link}
           to="/" 
           href="#home"
-          style={{ width: "200px"}}
+          style={{ width: "200px", marginLeft:"20px"}}
         >Helsinki Bike App
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -39,4 +39,4 @@ const Menu = () => {
 
 };
 
-export default Menu;
+export default Navigation;
