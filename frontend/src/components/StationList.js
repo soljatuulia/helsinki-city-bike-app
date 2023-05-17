@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchStationDetails } from '../reducers/stationReducer';
+import { Table, Button } from 'react-bootstrap';
 
 const StationList = () => {
   const dispatch = useDispatch();
@@ -11,15 +12,19 @@ const StationList = () => {
   };
 
   return (
-    <div>
-      <h2>Station list</h2>
-      <table>
+    <div style={{ width: "90%", margin: "0 auto" }}>
+      <h2 style={{ textAlign: "center", margin: "20px auto auto" }}>Stations</h2>
+      <Table 
+        variant="default"
+        style={{ width:"100%", margin: "20px auto" }}
+        striped
+        responsive>
         <thead>
           <tr>
             <th>Name</th>
             <th>Address</th>
             <th>Capacity</th>
-            <th>Actions</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
@@ -29,14 +34,14 @@ const StationList = () => {
               <td>{station.address}</td>
               <td>{station.capacity}</td>
               <td>
-                <button onClick={() => handleShowDetails(station.stationId)}>
+                <Button onClick={() => handleShowDetails(station.stationId)}>
                   Show Details
-                </button>
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>  
       {stationDetails && (
         <div>
           <h2>Station Details</h2>

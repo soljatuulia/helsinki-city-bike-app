@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import Table from 'react-bootstrap/Table';
 
 const JourneyList = () => {  
   const journeys = useSelector(state => {
@@ -9,15 +10,19 @@ const JourneyList = () => {
   console.log('JourneyList journeys: ' + journeys.content);
 
   return (
-    <div>
-      <h2>Journey list</h2>
-      <table>
+    <div style={{ width: "90%", margin: "0 auto" }}>
+      <h2 style={{ textAlign: "center", margin: "20px auto auto" }}>Journeys</h2>
+      <Table 
+        variant="default"
+        style={{ width:"100%", margin: "20px auto" }}
+        striped
+        responsive>
         <thead>
           <tr>
             <th>Departure station</th>
             <th>Return station</th>
-            <th>Journey duration</th>
-            <th>Journey length</th>
+            <th>Distance (km)</th>
+            <th>Duration (min)</th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +35,7 @@ const JourneyList = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>  
     </div>
   );
 };
