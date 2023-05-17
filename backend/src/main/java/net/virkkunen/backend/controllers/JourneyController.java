@@ -27,7 +27,7 @@ public class JourneyController {
 
   @GetMapping(value = "/journeys", produces = "application/json")
   public Page<Journey> getJourneys (@RequestParam(value = "page", defaultValue = "0") int pageNumber,
-    @RequestParam(value = "size", defaultValue = "10") int pageSize, 
+    @RequestParam(value = "size", defaultValue = "20") int pageSize, 
     @RequestParam(defaultValue="") String filter) {
     
     Pageable pageable = PageRequest.of(pageNumber, pageSize);
