@@ -24,15 +24,13 @@ public class JourneyServiceTests {
   @Mock
   private JourneyRepository journeyRepository;
 
-  private JourneyService journeyService;
-
   @Captor
   private ArgumentCaptor<List<Journey>> captor;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.openMocks(this);
-    journeyService = new JourneyService(journeyRepository);
+    new JourneyService(journeyRepository);
   }  
 
   private String getAbsolutePath(String relativePath) {
