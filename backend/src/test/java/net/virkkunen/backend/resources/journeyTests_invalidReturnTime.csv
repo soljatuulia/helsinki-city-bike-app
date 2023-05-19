@@ -1,0 +1,2 @@
+Departure,Return,Departure station id,Departure station name,Return station id,Return station name,Covered distance (m),Duration (sec.)
+2021-07-01T00:06:21,InvalidReturnTime,107,Tenholantie,111,Esterinportti,1847,407

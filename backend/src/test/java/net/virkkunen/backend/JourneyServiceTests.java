@@ -1,87 +1,110 @@
 package net.virkkunen.backend;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
+import net.virkkunen.backend.repositories.JourneyRepository;
+import net.virkkunen.backend.services.JourneyService;
 
-@SpringBootTest
 public class JourneyServiceTests {
 
-    private boolean validateJourney(String csvLine) {
-        String[] fields = csvLine.split(",");
-        try {
-            LocalDateTime departureTime = LocalDateTime.parse(fields[0], DateTimeFormatter.ISO_DATE_TIME);
-            LocalDateTime returnTime = LocalDateTime.parse(fields[1], DateTimeFormatter.ISO_DATE_TIME);
-            Integer departureStationId = Integer.parseInt(fields[2]);
-            String departureStationName = fields[3].replace("\"", "").trim();
-            Integer returnStationId = Integer.parseInt(fields[4]);
-            String returnStationName = fields[5].replace("\"", "").trim();
-            Integer distance = Integer.parseInt(fields[6]);
-            Integer duration = Integer.parseInt(fields[7]);
+  @Mock
+  private JourneyRepository journeyRepository;
 
-            return departureTime.isBefore(returnTime)
-                    && departureStationId > 0
-                    && returnStationId > 0
-                    && distance >= 10
-                    && duration >= 10;
+  private JourneyService journeyService;
 
-        } catch (NumberFormatException | DateTimeParseException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
+  @BeforeEach
+  public void setup() {
+    MockitoAnnotations.openMocks(this);
+    journeyService = new JourneyService(journeyRepository);
+  }  
 
-    @Test
-    public void validateJourney() {
-        String csvLine = "2021-05-01T00:00:11,2021-05-01T00:04:34,138,Arabiankatu,138,Arabiankatu,1057,259";
+  private String getAbsolutePath(String relativePath) {
+    Path resourceDirectory = Paths.get("src", "test", "java", "net", "virkkunen", "backend", "resources", relativePath);
+    return resourceDirectory.toAbsolutePath().toString();
+  }
 
-        Assertions.assertTrue(validateJourney(csvLine));
-    }
+  @Test
+  public void validDataIsAddedToRepository() throws IOException {
+      JourneyRepository journeyRepository = Mockito.mock(JourneyRepository.class);
+      JourneyService journeyService = new JourneyService(journeyRepository);
+      String csvFilePath = getAbsolutePath("journeyTests_validData.csv");
 
-    @Test
-    public void rejectInvalidDateTime() {
-        String csvLine = "InvalidDateTime,2021-05-01T00:04:34,138,Arabiankatu,138,Arabiankatu,1057,259";
+      journeyService.saveJourneysFromCsv(csvFilePath);
 
-        Assertions.assertFalse(validateJourney(csvLine));
-    }
+      Mockito.verify(journeyRepository, Mockito.times(1)).saveAll(Mockito.anyList());
+  }
 
-    @Test
-    public void rejectArrivalBeforeDeparture() {
-        String csvLine = "2021-05-01T00:04:34,2021-05-01T00:00:11,138,Arabiankatu,138,Arabiankatu,1057,259";
+  @Test
+  void invalidDepartureTimeShouldThrowDateTimeParseException() {
+    String csvFilePath = getAbsolutePath("journeyTests_invalidDepartureTime.csv");
 
-        Assertions.assertFalse(validateJourney(csvLine));
-    }
+    Assertions.assertThrows(DateTimeParseException.class, () -> {
+        journeyService.saveJourneysFromCsv(csvFilePath);
+    });
+  }
 
-    @Test
-    public void rejectDurationLessThan10Seconds() {
-        String csvLine = "2021-05-01T00:00:11,2021-05-01T00:04:34,138,Arabiankatu,138,Arabiankatu,1057,5";
+  @Test
+  void invalidReturnTimeShouldThrowDateTimeParseException() {
+    String csvFilePath = getAbsolutePath("journeyTests_invalidReturnTime.csv");
 
-        Assertions.assertFalse(validateJourney(csvLine));
-    }
+    Assertions.assertThrows(DateTimeParseException.class, () -> {
+          journeyService.saveJourneysFromCsv(csvFilePath);
+      });
+  }
 
-    @Test
-    public void rejectDistanveLessThan10Meters() {
-        String csvLine = "2021-05-01T00:00:11,2021-05-01T00:04:34,138,Arabiankatu,138,Arabiankatu,5,1057";
+  @Test
+  void returnTimeBeforeDepartureTimeShouldThrowIllegalArgumentException() {
+    String csvFilePath = getAbsolutePath("journeyTests_returnBeforeDeparture.csv");
 
-        Assertions.assertFalse(validateJourney(csvLine));
-    }
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+          journeyService.saveJourneysFromCsv(csvFilePath);
+      });
+  }  
 
-    @Test
-    public void rejectInvalidDepartureStationId() {
-        String csvLine = "2021-05-01T00:00:11,2021-05-01T00:04:34,-138,Arabiankatu,138,Arabiankatu,1057,259";
+  @Test
+  public void invalidDepartureStationIdShouldThrowIllegalArgumentException() {
+      String csvFilePath = getAbsolutePath("journeyTests_invalidDepartureStationId.csv");
 
-        Assertions.assertFalse(validateJourney(csvLine));
-    }
+      Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        journeyService.saveJourneysFromCsv(csvFilePath);
+    });
+  }
 
-    @Test
-    public void rejectInvalidReturnStationId() {
-        String csvLine = "2021-05-01T00:00:11,2021-05-01T00:04:34,138,Arabiankatu,-138,Arabiankatu,1057,259";
+  @Test
+  public void invalidReturnStationIdShouldThrowIllegalArgumentException() {
+      String csvFilePath = getAbsolutePath("journeyTests_invalidReturnStationId.csv");
 
-        Assertions.assertFalse(validateJourney(csvLine));
-    }
+      Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        journeyService.saveJourneysFromCsv(csvFilePath);
+    });
+  }
+
+  @Test
+  public void invalidDistanceShouldThrowIllegalArgumentException() {
+      String csvFilePath = getAbsolutePath("journeyTests_invalidDistance.csv");
+
+      Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        journeyService.saveJourneysFromCsv(csvFilePath);
+    });
+  }
+
+  @Test
+  public void invalidDurationShouldThrowIllegalArgumentException() {
+      String csvFilePath = getAbsolutePath("journeyTests_invalidDuration.csv");
+
+      Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        journeyService.saveJourneysFromCsv(csvFilePath);
+    });
+  }
+
 }
