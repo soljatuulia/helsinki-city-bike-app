@@ -28,7 +28,7 @@ public class JourneyService {
 
     @PostConstruct
     public void init() throws IOException {
-        String csvFilePath = "C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeylist.csv";
+        String csvFilePath = "C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeys0521.csv";
         try {
             System.out.println("We are in JourneyService init()");
             saveJourneysFromCsv(csvFilePath);
@@ -51,42 +51,48 @@ public class JourneyService {
                 }
 
                 String[] fields = line.split(",");
-                try {
                     parseAndAddValidJourney(fields, journeys);
-                } catch (NumberFormatException | DateTimeParseException ex) {
-                    ex.printStackTrace();
-                    throw ex;
-                }
             }
         }
 
         journeyRepository.saveAll(journeys);
     }
 
-    private void parseAndAddValidJourney(String[] fields, List<Journey> journeys) {
-        LocalDateTime departureTime = LocalDateTime.parse(fields[0], DateTimeFormatter.ISO_DATE_TIME);
-        LocalDateTime returnTime = LocalDateTime.parse(fields[1], DateTimeFormatter.ISO_DATE_TIME);
-        Integer departureStationId = Integer.parseInt(fields[2]);
-        String departureStationName = fields[3].replace("\"", "").trim();
-        Integer returnStationId = Integer.parseInt(fields[4]);
-        String returnStationName = fields[5].replace("\"", "").trim();
-        Integer distance = Integer.parseInt(fields[6]);
-        Integer duration = Integer.parseInt(fields[7]);
-
-        if (returnTime.isBefore(departureTime)) {
-            throw new IllegalArgumentException("Departure time must be earlier than return time");
-        } else if (departureStationId < 0 || returnStationId < 0) {
-            throw new IllegalArgumentException("Station id can not be negative");
-        } else if (distance < 10) {
-            throw new IllegalArgumentException("Distance must be over 10 meters");
-        } else if (duration < 10) {
-            throw new IllegalArgumentException("Duration must be over 10 seconds");
-        }
-
-        Journey journey = new Journey(departureTime, returnTime, departureStationId,
-                departureStationName, returnStationId, returnStationName, distance,
-                duration);
-
-        journeys.add(journey);
-    }
+    public void parseAndAddValidJourney(String[] fields, List<Journey> journeys) {
+      LocalDateTime departureTime;
+      LocalDateTime returnTime;
+      Integer departureStationId;
+      String departureStationName;
+      Integer returnStationId;
+      String returnStationName;
+      Integer distance;
+      Integer duration;
+  
+      try {
+          departureTime = LocalDateTime.parse(fields[0], DateTimeFormatter.ISO_DATE_TIME);
+          returnTime = LocalDateTime.parse(fields[1], DateTimeFormatter.ISO_DATE_TIME);
+          departureStationId = Integer.parseInt(fields[2]);
+          departureStationName = fields[3];
+          returnStationId = Integer.parseInt(fields[4]);
+          returnStationName = fields[5];
+          distance = Integer.parseInt(fields[6]);
+          duration = Integer.parseInt(fields[7]);
+      } catch (NumberFormatException | DateTimeParseException ex) {
+          ex.printStackTrace();
+          return;
+      }
+  
+      if (departureTime.isBefore(returnTime) &&
+              departureStationId > 0 &&
+              returnStationId > 0 &&
+              distance >= 10 &&
+              duration >= 10) {
+          Journey journey = new Journey(departureTime, returnTime, departureStationId,
+                  departureStationName, returnStationId, returnStationName, distance,
+                  duration);
+  
+          journeys.add(journey);
+      }
+  }
+  
 }
