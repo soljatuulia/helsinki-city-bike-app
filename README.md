@@ -2,7 +2,7 @@
 
 This application provides data about journeys made with city bikes in the Helsinki Capital area in summer 2021. Users can view basic information about bike journeys and stations, and get detailed information about stations from the listing, including the amount of departures and returns.
 
-## Technology Choices
+## Technologies
 
 The Station and Journey App utilizes the following technologies:
 
@@ -15,22 +15,26 @@ The Station and Journey App utilizes the following technologies:
 
 ## Prerequisites
 
-Before running the project locally, please ensure you have the following prerequisites installed:
+Before running the project locally, I recommend installing the following prerequisites:
 
 - Java 17
-- MySQL database
+- MySQL 8
 - Node.js v18
+
+The project was made on Windows 11.
 
 ## Configuration
 
 To configure the project, follow these steps:
 
 1. Open the backend project in your preferred Java IDE.
-2. Configure the database connection details in the `application.properties` file which you should save in the `src/main/resources` directory.
+2. Configure the database connection details by creating a `application.properties` file which you should save in the `src/main/resources` directory.
 3. Make sure to update the following properties with your specific database information:
-   - `spring.datasource.url`
-   - `spring.datasource.username`
-   - `spring.datasource.password`
+   - spring.datasource.url=<your datasource>
+   - spring.datasource.username=<your username>
+   - spring.datasource.password=<your password>
+   - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+   - server.port=8081
 
 ## How to Run the Project
 
@@ -50,7 +54,9 @@ To run the project, follow these steps:
 
 ## Todo
 
-- Improve error handling and data validation.
-- Enhance the search functionality with additional filters and sorting options.
-- Implement pagination for large result sets.
+- Refactor the data importing to something more robust and improve data validation.
+- Improve error handling.
+- Add tests to both backend and frontend.
+- Implement search functionality with filters and sorting options in frontend (already exists in backend).
+- Implement pagination in frontend (already exists in backend).
 
