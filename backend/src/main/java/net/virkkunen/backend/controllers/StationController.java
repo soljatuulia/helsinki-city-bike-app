@@ -47,7 +47,9 @@ public class StationController {
 
     StationDetails stationDetails = new StationDetails(station.getName(), station.getAddress(), 
           journeyRepo.totalDepartsPerStation(station.getJourneyStationId()), 
-          journeyRepo.totalReturnsPerStation(station.getJourneyStationId()));
+          journeyRepo.totalReturnsPerStation(station.getJourneyStationId()),
+          journeyRepo.averageDistanceOfDepartingJourney(station.getJourneyStationId()),
+          journeyRepo.averageDistanceOfReturningJourney(station.getJourneyStationId()));
           System.out.println("Station name is " + station.getName());
     
     return stationDetails;

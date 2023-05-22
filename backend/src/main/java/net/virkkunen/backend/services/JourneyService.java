@@ -28,34 +28,34 @@ public class JourneyService {
 
     @PostConstruct
     public void init() throws IOException {
-        String csvFilePath = "C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeys0521.csv";
+      String csvFilePath = "C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeys0521.csv";
         try {
-            System.out.println("We are in JourneyService init()");
-            saveJourneysFromCsv(csvFilePath);
+          System.out.println("We are in JourneyService init()");
+          saveJourneysFromCsv(csvFilePath);
         } catch (IOException ex) {
-            ex.printStackTrace();
+          ex.printStackTrace();
         }
     }
 
     @Transactional
     public void saveJourneysFromCsv(String csvFilePath) throws IOException {
-        List<Journey> journeys = new ArrayList<>();
+      List<Journey> journeys = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFilePath), "UTF-8"))) {
-            String line;
-            boolean firstLine = true;
-            while ((line = br.readLine()) != null) {
-                if (firstLine) {
-                    firstLine = false;
-                    continue;
-                }
+      try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFilePath), "UTF-8"))) {
+        String line;
+        boolean firstLine = true;
+        while ((line = br.readLine()) != null) {
+          if (firstLine) {
+            firstLine = false;
+            continue;
+          }
 
-                String[] fields = line.split(",");
-                    parseAndAddValidJourney(fields, journeys);
-            }
+          String[] fields = line.split(",");
+          parseAndAddValidJourney(fields, journeys);
         }
+      }
 
-        journeyRepository.saveAll(journeys);
+      journeyRepository.saveAll(journeys);
     }
 
     public void parseAndAddValidJourney(String[] fields, List<Journey> journeys) {
@@ -69,29 +69,30 @@ public class JourneyService {
       Integer duration;
   
       try {
-          departureTime = LocalDateTime.parse(fields[0], DateTimeFormatter.ISO_DATE_TIME);
-          returnTime = LocalDateTime.parse(fields[1], DateTimeFormatter.ISO_DATE_TIME);
-          departureStationId = Integer.parseInt(fields[2]);
-          departureStationName = fields[3];
-          returnStationId = Integer.parseInt(fields[4]);
-          returnStationName = fields[5];
-          distance = Integer.parseInt(fields[6]);
-          duration = Integer.parseInt(fields[7]);
+        departureTime = LocalDateTime.parse(fields[0], DateTimeFormatter.ISO_DATE_TIME);
+        returnTime = LocalDateTime.parse(fields[1], DateTimeFormatter.ISO_DATE_TIME);
+        departureStationId = Integer.parseInt(fields[2]);
+        departureStationName = fields[3];
+        returnStationId = Integer.parseInt(fields[4]);
+        returnStationName = fields[5];
+        distance = Integer.parseInt(fields[6]);
+        duration = Integer.parseInt(fields[7]);
       } catch (NumberFormatException | DateTimeParseException ex) {
-          ex.printStackTrace();
-          return;
+        ex.printStackTrace();
+        return;
       }
   
       if (departureTime.isBefore(returnTime) &&
-              departureStationId > 0 &&
-              returnStationId > 0 &&
-              distance >= 10 &&
-              duration >= 10) {
-          Journey journey = new Journey(departureTime, returnTime, departureStationId,
+        departureStationId > 0 &&
+        returnStationId > 0 &&
+        distance >= 10 &&
+        duration >= 10) {
+
+        Journey journey = new Journey(departureTime, returnTime, departureStationId,
                   departureStationName, returnStationId, returnStationName, distance,
                   duration);
   
-          journeys.add(journey);
+        journeys.add(journey);
       }
   }
   

@@ -6,12 +6,17 @@ public class StationDetails {
   private String address;
   private int totalDepartures;
   private int totalReturns;
+  private double averageDepartureDistance;
+  private double averageReturnDistance;
 
-  public StationDetails(String name, String address, int totalDepartures, int totalReturns) {
+  public StationDetails(String name, String address, int totalDepartures, int totalReturns,
+      double averageDepartureDistance, double averageReturnDistance) {
     this.name = name;
     this.address = address;
     this.totalDepartures = totalDepartures;
     this.totalReturns = totalReturns;
+    this.averageDepartureDistance = averageDepartureDistance;
+    this.averageReturnDistance = averageReturnDistance;
   }
 
   public String getName() {
@@ -46,6 +51,20 @@ public class StationDetails {
     this.totalReturns = totalReturns;
   }
 
-  
+  public double getAverageDepartureDistance() {
+    return averageDepartureDistance;
+  }
+
+  public void setAverageDepartureDistance(double averageDepartureDistance) {
+    this.averageDepartureDistance = averageDepartureDistance;
+  }
+
+  public double getAverageReturnDistance() {
+    return averageReturnDistance;
+  }
+
+  public void setAverageReturnDistance(double averageReturnDistance) {
+    this.averageReturnDistance = averageReturnDistance;
+  }
 
 }

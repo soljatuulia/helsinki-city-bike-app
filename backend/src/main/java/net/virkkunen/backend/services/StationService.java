@@ -29,7 +29,7 @@ public class StationService {
   public void init() throws IOException {
     try {
       System.out.println("We are at StationService init()");
-      saveStationsFromCsv("C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//stationslist.csv");
+      saveStationsFromCsv("C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//allstations.csv");
     } catch (IOException ex) {
       ex.printStackTrace();
     }
