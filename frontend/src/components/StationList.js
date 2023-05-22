@@ -58,8 +58,10 @@ const StationList = () => {
         <div>
           <p><b>Name:</b> {stationDetails.name}</p>
           <p><b>Address:</b> {stationDetails.address}</p>
-          <p><b>Total Departures:</b> {stationDetails.totalDepartures}</p>
-          <p><b>Total Returns:</b> {stationDetails.totalReturns}</p>
+          <p><b>Total departures:</b> {stationDetails.totalDepartures}</p>
+          <p><b>Total returns:</b> {stationDetails.totalReturns}</p>
+          <p><b>Average length of journeys starting here:</b> {stationDetails.averageDepartureDistance.toFixed(2)} km</p>
+          <p><b>Average length of journeys ending here:</b> {stationDetails.averageReturnDistance.toFixed(2)} km</p>
         </div>
         )}
       </Modal.Body>
