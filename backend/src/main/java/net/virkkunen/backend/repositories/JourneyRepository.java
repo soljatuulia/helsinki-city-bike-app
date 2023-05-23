@@ -13,12 +13,14 @@ import net.virkkunen.backend.entities.Journey;
 
 public interface JourneyRepository extends JpaRepository<Journey,Integer> {
 
-  @Query("SELECT j.departureStationName, j.returnStationName, j.distance / 1000.0 AS distanceInKm, j.duration / 60.0 AS durationInMin FROM Journey j")
-  Page<Journey> listJourneys(Pageable pageable, @Param("sorter") String sorter);
-
-  @Query("SELECT j.journeyId, j.departureTime, j.returnTime, j.departureStationName, j.returnStationName, j.distance / 1000.0 AS distanceInKm, j.duration / 60.0 AS durationInMin FROM Journey j WHERE j.departureStationName LIKE %:filter% OR j.returnStationName LIKE %:filter%")
-  Page<Journey> findFiltered(Pageable pageable, @Param("filter") String filter);
-
+  @Query("SELECT j.journeyId, j.departureTime, j.returnTime, j.departureStationName, j.returnStationName, " +
+        "j.distance / 1000.0 AS distanceInKm, j.duration / 60.0 AS durationInMin " + 
+        "FROM Journey j " + 
+        "WHERE DAY(j.departureTime) = :day " +
+        "AND MONTH(j.departureTime) = :month " + 
+        "AND (j.departureStationName LIKE %:filter% OR j.returnStationName LIKE %:filter%)")
+  Page<Journey> listJourneys(Pageable pageable, @Param("filter") String filter, @Param("day") int day, @Param("month") int month);
+  
   @Query("SELECT COUNT(j) FROM Journey j WHERE j.departureStationId = :journeyStationId")
   Integer totalDepartsPerStation(@Param("journeyStationId") int journeyStationId);
 

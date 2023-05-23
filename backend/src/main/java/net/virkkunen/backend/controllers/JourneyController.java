@@ -30,18 +30,13 @@ public class JourneyController {
       @RequestParam(value = "page", defaultValue = "0") int pageNumber,
       @RequestParam(value = "size", defaultValue = "20") int pageSize,
       @RequestParam(defaultValue = "") String filter,
+      @RequestParam(value = "day", required = false) int day,
+      @RequestParam(value = "month", required = false) int month,
       @RequestParam(defaultValue = "journeyId") String sortColumn,
       @RequestParam(defaultValue = "asc") String sortOrder) {
 
     Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.fromString(sortOrder), sortColumn));
-    Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
-    return journeys;
-  }
-
-  @GetMapping(value = "journeys/sort")
-  public Page<Journey> sortJourneys(@RequestParam(defaultValue = "") String sorter) {
-    Pageable pageable = PageRequest.of(10, 10, Sort.by(sorter).descending());
-    Page<Journey> journeys = journeyRepo.listJourneys(pageable, sorter);
+    Page<Journey> journeys = journeyRepo.listJourneys(pageable, "%" + filter + "%", day, month);
     return journeys;
   }
 
