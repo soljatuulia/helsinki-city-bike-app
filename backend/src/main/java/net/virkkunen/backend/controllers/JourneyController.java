@@ -26,11 +26,14 @@ public class JourneyController {
   JourneyRepository journeyRepo;
 
   @GetMapping(value = "/journeys", produces = "application/json")
-  public Page<Journey> getJourneys (@RequestParam(value = "page", defaultValue = "0") int pageNumber,
-    @RequestParam(value = "size", defaultValue = "20") int pageSize, 
-    @RequestParam(defaultValue="") String filter) {
-    
-    Pageable pageable = PageRequest.of(pageNumber, pageSize);
+  public Page<Journey> getJourneys(
+      @RequestParam(value = "page", defaultValue = "0") int pageNumber,
+      @RequestParam(value = "size", defaultValue = "20") int pageSize,
+      @RequestParam(defaultValue = "") String filter,
+      @RequestParam(defaultValue = "journeyId") String sortColumn,
+      @RequestParam(defaultValue = "asc") String sortOrder) {
+
+    Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.fromString(sortOrder), sortColumn));
     Page<Journey> journeys = journeyRepo.findFiltered(pageable, "%" + filter + "%");
     return journeys;
   }
