@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Table, Row, Col } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 
 import { initializeJourneys } from '../reducers/journeyReducer';
 

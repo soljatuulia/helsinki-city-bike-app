@@ -1,19 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Table, NavLink, Modal } from 'react-bootstrap';
+import { Button, Form, Table, NavLink, Modal } from 'react-bootstrap';
 
 import { fetchStationDetails, initializeStations, setSelectedStationDetails } from '../reducers/stationReducer';
 
 const StationList = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [filter, setFilter] = useState('');
+
   const stations = useSelector((state) => state.station.stations);
   const stationDetails = useSelector((state) => state.station.stationDetails);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initializeStations(currentPage));
-  }, [currentPage, dispatch]);
+    dispatch(initializeStations(currentPage, filter));
+  }, [currentPage, filter, dispatch]);
+
+  const handleFiltering = (event) => {
+    setFilter(event.target.value);
+  };
 
   const handlePageForward = () => {
     setCurrentPage((page) => page + 1);
@@ -35,7 +41,14 @@ const StationList = () => {
 
   return (
     <div style={{ width: '90%', margin: '0 auto' }}>
-      <h2 style={{ textAlign: 'center', margin: '20px auto auto' }}>Stations</h2>
+      <div style={{ textAlign: 'center' }}>
+        <h2 style={{ margin: '20px auto' }}>Stations</h2>
+        <p>Search for stations by typing the name or address below.<br />
+        Click on "station details" to view more information.</p>
+      </div>
+      <Form>
+        <Form.Control onChange={handleFiltering}/>
+      </Form>
       <Table 
         variant='default'
         style={{ width:'100%', margin: '20px auto' }}

@@ -2,10 +2,11 @@ import axios from 'axios';
 
 const baseUrl = 'http://localhost:8081/api/stations';
 
-const getAll = async (page) => {
+const getAll = async (page, filter) => {
   const response = await axios.get(baseUrl, {
     params: {
-      page: page
+      page: page,
+      filter: filter
     }
   });
   return response.data;
