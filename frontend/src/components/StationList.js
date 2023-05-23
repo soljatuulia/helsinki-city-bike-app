@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table, NavLink, Modal } from 'react-bootstrap';
+import { Button, Table, NavLink, Modal } from 'react-bootstrap';
 
 import { fetchStationDetails, initializeStations, setSelectedStationDetails } from '../reducers/stationReducer';
 
@@ -34,11 +34,11 @@ const StationList = () => {
   };
 
   return (
-    <div style={{ width: "90%", margin: "0 auto" }}>
-      <h2 style={{ textAlign: "center", margin: "20px auto auto" }}>Stations</h2>
+    <div style={{ width: '90%', margin: '0 auto' }}>
+      <h2 style={{ textAlign: 'center', margin: '20px auto auto' }}>Stations</h2>
       <Table 
-        variant="default"
-        style={{ width:"100%", margin: "20px auto" }}
+        variant='default'
+        style={{ width:'100%', margin: '20px auto' }}
         striped
         hover
         responsive>
@@ -58,7 +58,7 @@ const StationList = () => {
                 <NavLink
                   value={station.stationId}
                   onClick={() => handleShowDetails(station.stationId)}
-                  style={{ color: "DarkGoldenRod" }}
+                  style={{ color: 'DarkGoldenRod' }}
                 >
                   station details
                 </NavLink>
@@ -84,8 +84,10 @@ const StationList = () => {
         )}
       </Modal.Body>
     </Modal>
-    <button onClick={handlePageBack}>Previous</button>
-    <button onClick={handlePageForward}>Next</button>
+    <div style={{ display: 'flex', justifyContent: 'space-between', margin: 'auto auto 20px auto' }}>
+    <Button variant='outline-warning' onClick={handlePageBack}>Previous</Button>
+    <Button variant='outline-warning' onClick={handlePageForward}>Next</Button>
+    </div>
   </div>
   );
 };
