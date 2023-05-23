@@ -6,13 +6,15 @@ import { initializeJourneys } from '../reducers/journeyReducer';
 
 const JourneyList = () => {
   const [currentPage, setCurrentPage] = useState(0);  
+  const [sortColumn, setSortColumn] = useState(null);
+  const [sortOrder, setSortOrder] = useState(null);
   const journeys = useSelector(state =>  state.journey.journeys);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initializeJourneys(currentPage));
-  }, [currentPage, dispatch]);
+    dispatch(initializeJourneys(currentPage, sortColumn, sortOrder));
+  }, [currentPage, sortColumn, sortOrder, dispatch]);
 
   const handlePageForward = () => {
     setCurrentPage((page) => page + 1);
@@ -24,9 +26,21 @@ const JourneyList = () => {
     }
   };
 
+  const handleSort = column => {
+    if (sortColumn === column) {
+      setSortOrder(order => (order === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortColumn(column);
+      setSortOrder('asc');
+    }
+  };
+
   return (
     <div style={{ width: '90%', margin: '0 auto' }}>
-      <h2 style={{ textAlign: 'center', margin: '20px auto auto' }}>Journeys</h2>
+      <div style={{ textAlign: 'center' }}>
+        <h2 style={{ margin: '20px auto' }}>Journeys</h2>
+        <p>To sort the journeys, click on column names.</p>
+      </div>
       <Table 
         variant='default'
         style={{ width:'100%', margin: '20px auto' }}
@@ -35,19 +49,27 @@ const JourneyList = () => {
         responsive>
         <thead>
           <tr>
-            <th>Departure station</th>
-            <th>Return station</th>
-            <th>Distance (km)</th>
-            <th>Duration (min)</th>
+          <th onClick={() => handleSort('departureStationName')}>
+              Departure station {sortColumn === 'departureStationName' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
+            </th>
+            <th onClick={() => handleSort('returnStationName')}>
+              Return station {sortColumn === 'returnStationName' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
+            </th>
+            <th onClick={() => handleSort('distanceInKm')}>
+              Distance (km) {sortColumn === 'distanceInKm' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
+            </th>
+            <th onClick={() => handleSort('durationInMin')}>
+              Duration (min) {sortColumn === 'durationInMin' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
+            </th>
           </tr>
         </thead>
         <tbody>
           {journeys.content.map(journey => (
             <tr key={journey[0]}>
-              <td>{journey[1]}</td>
-              <td>{journey[2]}</td>
-              <td>{journey[3].toFixed(2)}</td>
-              <td>{journey[4].toFixed(2)}</td>
+              <td>{journey[3]}</td>
+              <td>{journey[4]}</td>
+              <td>{journey[5].toFixed(2)}</td>
+              <td>{journey[6].toFixed(2)}</td>
             </tr>
           ))}
         </tbody>
