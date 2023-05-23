@@ -38,9 +38,9 @@ const stationSlice = createSlice({
   }
 });
 
-export const initializeStations = () => {
+export const initializeStations = (page) => {
   return async dispatch => {
-    const stations = await stationService.getAll();
+    const stations = await stationService.getAll(page);
     const payload = {
       content: stations.content,
       totalPages: stations.totalPages,

@@ -1,11 +1,29 @@
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchStationDetails, setSelectedStationDetails } from '../reducers/stationReducer';
 import { Table, NavLink, Modal } from 'react-bootstrap';
 
+import { fetchStationDetails, initializeStations, setSelectedStationDetails } from '../reducers/stationReducer';
+
 const StationList = () => {
-  const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(0);
   const stations = useSelector((state) => state.station.stations);
   const stationDetails = useSelector((state) => state.station.stationDetails);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeStations(currentPage));
+  }, [currentPage, dispatch]);
+
+  const handlePageForward = () => {
+    setCurrentPage((page) => page + 1);
+  };
+
+  const handlePageBack = () => {
+    if (currentPage > 0) {
+        setCurrentPage((page) => page - 1);
+    }
+  };
 
   const handleShowDetails = (stationId) => {
     dispatch(fetchStationDetails(stationId));
@@ -58,14 +76,16 @@ const StationList = () => {
         <div>
           <p><b>Name:</b> {stationDetails.name}</p>
           <p><b>Address:</b> {stationDetails.address}</p>
-          <p><b>Total departures:</b> {stationDetails.totalDepartures}</p>
-          <p><b>Total returns:</b> {stationDetails.totalReturns}</p>
+          <p><b>Number of departures:</b> {stationDetails.totalDepartures}</p>
+          <p><b>Number of returns:</b> {stationDetails.totalReturns}</p>
           <p><b>Average length of journeys starting here:</b> {stationDetails.averageDepartureDistance.toFixed(2)} km</p>
           <p><b>Average length of journeys ending here:</b> {stationDetails.averageReturnDistance.toFixed(2)} km</p>
         </div>
         )}
       </Modal.Body>
     </Modal>
+    <button onClick={handlePageBack}>Previous</button>
+    <button onClick={handlePageForward}>Next</button>
   </div>
   );
 };

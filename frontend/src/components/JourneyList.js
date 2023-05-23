@@ -1,13 +1,28 @@
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 
-const JourneyList = () => {  
-  const journeys = useSelector(state => {
-    console.log('State in JourneyList' + JSON.stringify(state.journey.journeys));
-    return state.journey.journeys;
-  });
+import { initializeJourneys } from '../reducers/journeyReducer';
 
-  console.log('JourneyList journeys: ' + journeys.content);
+const JourneyList = () => {
+  const [currentPage, setCurrentPage] = useState(0);  
+  const journeys = useSelector(state =>  state.journey.journeys);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeJourneys(currentPage));
+  }, [currentPage, dispatch]);
+
+  const handlePageForward = () => {
+    setCurrentPage((page) => page + 1);
+  };
+
+  const handlePageBack = () => {
+    if (currentPage > 0) {
+        setCurrentPage((page) => page - 1);
+    }
+  };
 
   return (
     <div style={{ width: "90%", margin: "0 auto" }}>
@@ -36,7 +51,9 @@ const JourneyList = () => {
             </tr>
           ))}
         </tbody>
-      </Table>  
+      </Table>
+      <button onClick={handlePageBack}>Previous</button>
+      <button onClick={handlePageForward}>Next</button>  
     </div>
   );
 };
