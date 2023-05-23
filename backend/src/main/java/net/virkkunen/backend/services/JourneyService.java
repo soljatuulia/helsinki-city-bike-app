@@ -25,7 +25,7 @@ public class JourneyService {
     public JourneyService(JourneyRepository journeyRepository) {
         this.journeyRepository = journeyRepository;
     }
-
+/* 
     @PostConstruct
     public void init() throws IOException {
       String csvFilePath = "C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeys0521.csv";
@@ -36,7 +36,7 @@ public class JourneyService {
           ex.printStackTrace();
         }
     }
-
+*/
     @Transactional
     public void saveJourneysFromCsv(String csvFilePath) throws IOException {
       List<Journey> journeys = new ArrayList<>();

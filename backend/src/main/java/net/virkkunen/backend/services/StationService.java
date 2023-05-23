@@ -24,7 +24,7 @@ public class StationService {
   public StationService(StationRepository stationRepository) {
     this.stationRepository = stationRepository;
   }
-
+/*
   @PostConstruct
   public void init() throws IOException {
     try {
@@ -34,7 +34,7 @@ public class StationService {
       ex.printStackTrace();
     }
   }
-
+*/
   @Transactional
   public void saveStationsFromCsv(String csvFilePath) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFilePath), "UTF-8"));

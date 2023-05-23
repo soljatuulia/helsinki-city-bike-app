@@ -31,10 +31,12 @@ public class StationController {
 
   @GetMapping(value = "/stations", produces = "application/json")
   public Page<Station> listStations(@RequestParam(value = "page", defaultValue = "0") int pageNumber,
-    @RequestParam(value = "size", defaultValue = "20") int pageSize) {
+    @RequestParam(value = "size", defaultValue = "20") int pageSize,
+    @RequestParam(defaultValue = "") String filter) {
     
     Pageable pageable = PageRequest.of(pageNumber, pageSize);
-    return stationRepo.findAll(pageable);
+    Page<Station> stations = stationRepo.filterStations(pageable, "%" + filter + "%");
+    return stations;
   }
 
   @GetMapping(value = "/stations/{id}")
