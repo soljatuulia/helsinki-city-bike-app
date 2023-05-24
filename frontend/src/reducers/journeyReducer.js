@@ -34,9 +34,9 @@ const journeySlice = createSlice({
   }
 });
 
-export const initializeJourneys = (page, column, order) => {
+export const initializeJourneys = (page, column, order, day, month) => {
   return async dispatch => {
-    const journeys = await journeyService.getAll(page, column, order);
+    const journeys = await journeyService.getAll(page, column, order, day, month);
     const payload = {
       content: journeys.content,
       totalPages: journeys.totalPages,
