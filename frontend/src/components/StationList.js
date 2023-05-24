@@ -48,7 +48,7 @@ const StationList = () => {
         Click on <i>station details</i> to view more information.</p>
 			</div>
 			<Form>
-				<Form.Control onChange={handleFiltering}/>
+				<Form.Control id='searchbar' onChange={handleFiltering}/>
 			</Form>
 			<Table 
 				variant='default'
@@ -70,6 +70,7 @@ const StationList = () => {
 							<td>{station.address}</td>
 							<td>
 								<NavLink
+									id='stationDetails'
 									value={station.stationId}
 									onClick={() => handleShowDetails(station.stationId)}
 									style={{ color: 'DarkGoldenRod' }}

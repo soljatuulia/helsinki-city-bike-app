@@ -60,16 +60,16 @@ const JourneyList = () => {
 				responsive>
 				<thead>
 					<tr>
-						<th onClick={() => handleSort('departureStationName')}>
+						<th id='departureStation' onClick={() => handleSort('departureStationName')}>
               Departure station {sortColumn === 'departureStationName' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
 						</th>
-						<th onClick={() => handleSort('returnStationName')}>
+						<th id='returnStation' onClick={() => handleSort('returnStationName')}>
               Return station {sortColumn === 'returnStationName' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
 						</th>
-						<th onClick={() => handleSort('distanceInKm')}>
+						<th id='distance' onClick={() => handleSort('distanceInKm')}>
               Distance (km) {sortColumn === 'distanceInKm' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
 						</th>
-						<th onClick={() => handleSort('durationInMin')}>
+						<th id= 'duration' onClick={() => handleSort('durationInMin')}>
               Duration (min) {sortColumn === 'durationInMin' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
 						</th>
 					</tr>

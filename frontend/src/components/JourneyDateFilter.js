@@ -27,7 +27,7 @@ const JourneyDateFilter = ({ onFilter }) => {
 		const dayOptions = [];
 		for (let i = 1; i <= 31; i++) {
 			dayOptions.push(
-				<Dropdown.Item key={i} eventKey={String(i)}>
+				<Dropdown.Item id='day' key={i} eventKey={String(i)}>
 					{i}
 				</Dropdown.Item>
 			);
@@ -39,26 +39,26 @@ const JourneyDateFilter = ({ onFilter }) => {
 		<div>
 			<ButtonGroup>
 				<Dropdown style={{ margin: 'auto 5px' }} onSelect={handleDaySelect}>
-					<Dropdown.Toggle variant="outline-secondary" id="day-dropdown">
+					<Dropdown.Toggle variant='outline-secondary' id='day-dropdown'>
 						{selectedDay || 'Select Day'}
 					</Dropdown.Toggle>
 					<Dropdown.Menu>{renderDayOptions()}</Dropdown.Menu>
 				</Dropdown>
 				<Dropdown style={{ margin: 'auto 5px' }} onSelect={handleMonthSelect}>
-					<Dropdown.Toggle variant="outline-secondary" id="month-dropdown">
+					<Dropdown.Toggle variant='outline-secondary' id='month-dropdown'>
 						{selectedMonth || 'Select Month'}
 					</Dropdown.Toggle>
 					<Dropdown.Menu>
-						<Dropdown.Item eventKey="5">May</Dropdown.Item>
-						<Dropdown.Item eventKey="6">June</Dropdown.Item>
-						<Dropdown.Item eventKey="7">July</Dropdown.Item>
+						<Dropdown.Item id='May' eventKey='5'>May</Dropdown.Item>
+						<Dropdown.Item eventKey='6'>June</Dropdown.Item>
+						<Dropdown.Item eventKey='7'>July</Dropdown.Item>
 					</Dropdown.Menu>
 				</Dropdown>
 			</ButtonGroup>
-			<Button style={{ margin: 'auto 5px' }} variant="warning" onClick={handleFilter}>
+			<Button id='filter' style={{ margin: 'auto 5px' }} variant='warning' onClick={handleFilter}>
         Filter
 			</Button>
-			<Button style={{ margin: 'auto 5px' }} variant="secondary" onClick={handleReset}>
+			<Button id='reset' style={{ margin: 'auto 5px' }} variant='secondary' onClick={handleReset}>
         Reset
 			</Button>
 		</div>
