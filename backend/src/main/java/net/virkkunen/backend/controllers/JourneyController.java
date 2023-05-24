@@ -30,14 +30,20 @@ public class JourneyController {
       @RequestParam(value = "page", defaultValue = "0") int pageNumber,
       @RequestParam(value = "size", defaultValue = "20") int pageSize,
       @RequestParam(defaultValue = "") String filter,
-      @RequestParam(value = "day", required = false) int day,
-      @RequestParam(value = "month", required = false) int month,
+      @RequestParam(value = "day", required = false) Integer day,
+      @RequestParam(value = "month", required = false) Integer month,
       @RequestParam(defaultValue = "journeyId") String sortColumn,
       @RequestParam(defaultValue = "asc") String sortOrder) {
 
-    Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.fromString(sortOrder), sortColumn));
-    Page<Journey> journeys = journeyRepo.listJourneys(pageable, "%" + filter + "%", day, month);
-    return journeys;
+    if (day == null | month == null) {
+      Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.fromString(sortOrder), sortColumn));
+      Page<Journey> journeys = journeyRepo.listJourneys(pageable, "%" + filter + "%");
+      return journeys;
+    } else {
+      Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.fromString(sortOrder), sortColumn));
+      Page<Journey> journeysByDate = journeyRepo.listJourneysByDate(pageable, "%" + filter + "%", day, month);
+      return journeysByDate;
+    } 
   }
 
   @GetMapping(value = "/journeys/{id}")

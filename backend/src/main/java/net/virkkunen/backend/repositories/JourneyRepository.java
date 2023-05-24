@@ -13,13 +13,18 @@ import net.virkkunen.backend.entities.Journey;
 
 public interface JourneyRepository extends JpaRepository<Journey,Integer> {
 
-  @Query("SELECT j.journeyId, j.departureTime, j.returnTime, j.departureStationName, j.returnStationName, " +
-        "j.distance / 1000.0 AS distanceInKm, j.duration / 60.0 AS durationInMin " + 
-        "FROM Journey j " + 
-        "WHERE DAY(j.departureTime) = :day " +
-        "AND MONTH(j.departureTime) = :month " + 
-        "AND (j.departureStationName LIKE %:filter% OR j.returnStationName LIKE %:filter%)")
-  Page<Journey> listJourneys(Pageable pageable, @Param("filter") String filter, @Param("day") int day, @Param("month") int month);
+  @Query("SELECT j.journeyId, j.departureTime, j.returnTime, j.departureStationName, j.returnStationName," +
+  "j.distance / 1000.0 AS distanceInKm, j.duration / 60.0 AS durationInMin " + 
+  "FROM Journey j " + 
+  "WHERE (j.departureStationName LIKE %:filter% OR j.returnStationName LIKE %:filter%)")
+  Page<Journey> listJourneys(Pageable pageable, @Param("filter") String filter);
+
+  @Query("SELECT j.journeyId, j.departureTime, j.returnTime, j.departureStationName, j.returnStationName," +
+  "j.distance / 1000.0 AS distanceInKm, j.duration / 60.0 AS durationInMin " + 
+  "FROM Journey j " + 
+  "WHERE ((:day IS NULL AND :month IS NULL) OR (DAY(j.departureTime) = :day AND MONTH(j.departureTime) = :month)) " +
+  "AND (j.departureStationName LIKE %:filter% OR j.returnStationName LIKE %:filter%)")
+  Page<Journey> listJourneysByDate(Pageable pageable, @Param("filter") String filter, @Param("day") Integer day, @Param("month") Integer month);
   
   @Query("SELECT COUNT(j) FROM Journey j WHERE j.departureStationId = :journeyStationId")
   Integer totalDepartsPerStation(@Param("journeyStationId") int journeyStationId);

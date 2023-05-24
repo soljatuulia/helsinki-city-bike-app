@@ -30,7 +30,8 @@ public class StationController {
   JourneyRepository journeyRepo;
 
   @GetMapping(value = "/stations", produces = "application/json")
-  public Page<Station> listStations(@RequestParam(value = "page", defaultValue = "0") int pageNumber,
+  public Page<Station> listStations(
+    @RequestParam(value = "page", defaultValue = "0") int pageNumber,
     @RequestParam(value = "size", defaultValue = "20") int pageSize,
     @RequestParam(defaultValue = "") String filter) {
     
