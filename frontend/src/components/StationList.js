@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Form, Table, NavLink, Modal } from 'react-bootstrap';
+import { Button, Form, Table, NavLink } from 'react-bootstrap';
 
+import StationModal from './StationModal';
 import { fetchStationDetails, initializeStations, setSelectedStationDetails } from '../reducers/stationReducer';
 
 const StationList = () => {
@@ -80,26 +81,10 @@ const StationList = () => {
           ))}
         </tbody>
       </Table>
-      <Modal show={!!stationDetails} onHide={handleCloseDetails}>
-        <Modal.Header closeButton>
-          <Modal.Title>Station Details</Modal.Title>
-       </Modal.Header>
-      <Modal.Body>
-        {stationDetails && (
-        <div>
-          <p><b>Name:</b> {stationDetails.name}</p>
-          <p><b>Address:</b> {stationDetails.address}</p>
-          <p><b>Number of departures:</b> {stationDetails.totalDepartures}</p>
-          <p><b>Number of returns:</b> {stationDetails.totalReturns}</p>
-          <p><b>Average length of journeys starting here:</b> {stationDetails.averageDepartureDistance.toFixed(2)} km</p>
-          <p><b>Average length of journeys ending here:</b> {stationDetails.averageReturnDistance.toFixed(2)} km</p>
-        </div>
-        )}
-      </Modal.Body>
-    </Modal>
+    <StationModal stationDetails={stationDetails} handleCloseDetails={handleCloseDetails} />
     <div style={{ display: 'flex', justifyContent: 'space-between', margin: 'auto auto 20px auto' }}>
-    <Button variant='outline-warning' onClick={handlePageBack}>Previous</Button>
-    <Button variant='outline-warning' onClick={handlePageForward}>Next</Button>
+      <Button variant='outline-warning' onClick={handlePageBack}>Previous</Button>
+      <Button variant='outline-warning' onClick={handlePageForward}>Next</Button>
     </div>
   </div>
   );
