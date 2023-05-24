@@ -36,15 +36,19 @@ const journeySlice = createSlice({
 
 export const initializeJourneys = (page, column, order, day, month) => {
   return async dispatch => {
-    const journeys = await journeyService.getAll(page, column, order, day, month);
-    const payload = {
-      content: journeys.content,
-      totalPages: journeys.totalPages,
-      totalElements: journeys.totalElements,
-      pageable: journeys.pageable
-    };
-    console.log('initializeJourneys: ' + journeys);
-    dispatch(setJourneys(payload));
+    try {
+      const journeys = await journeyService.getAll(page, column, order, day, month);
+      const payload = {
+        content: journeys.content,
+        totalPages: journeys.totalPages,
+        totalElements: journeys.totalElements,
+        pageable: journeys.pageable
+      };
+      console.log('initializeJourneys:', journeys);
+      dispatch(setJourneys(payload));
+    } catch (error) {
+      console.error('Error occurred while initializing journeys:', error);
+    }
   };
 };
 

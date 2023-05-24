@@ -20,8 +20,16 @@ const App = () => {
 
   useEffect(() => {
     console.log('In useEffect');
-    dispatch(initializeStations(stations));
-    dispatch(initializeJourneys(journeys));
+    const initializeData = async () => {
+      try {
+        await dispatch(initializeStations(stations));
+        await dispatch(initializeJourneys(journeys));
+      } catch (error) {
+        console.error('Error occurred during data initialization:', error);
+        // Handle the error here or perform any necessary actions
+      }
+    };
+    initializeData();
   }, [dispatch]);
 
   return (
@@ -40,4 +48,4 @@ const App = () => {
   );
 };
 
-    export default App;
+export default App;

@@ -40,15 +40,19 @@ const stationSlice = createSlice({
 
 export const initializeStations = (page, filter) => {
   return async dispatch => {
-    const stations = await stationService.getAll(page, filter);
-    const payload = {
-      content: stations.content,
-      totalPages: stations.totalPages,
-      totalElements: stations.totalElements,
-      pageable: stations.pageable
-    };
+    try {
+      const stations = await stationService.getAll(page, filter);
+      const payload = {
+        content: stations.content,
+        totalPages: stations.totalPages,
+        totalElements: stations.totalElements,
+        pageable: stations.pageable
+      };
 
-    dispatch(setStations(payload));
+      dispatch(setStations(payload));
+    } catch (error) {
+      console.error('Error occurred while initializing stations:', error);
+    }
   };
 };
 
