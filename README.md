@@ -34,10 +34,10 @@ To configure the project, follow these steps:
    - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
    - server.port=8081
 4. Download these four data sets and save them in the `src/main/resources` directory of the backend application.
-   - [https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv] (https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv)
-   - [https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv] (https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv)
-   - [https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv] (https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv)
-   - [https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv] (https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv)
+   - https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv
+   - https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv
+   - https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv
+   - https://opendata.arcgis.com/datasets/726277c507ef4914b0aec3cbcfcbfafc_0.csv
 5. Update the file paths in `backend/src/main/java/backend/services/JourneyService.java` to match the three first files which include journey data.
 6. Update the file path in `backend/src/main/java/backend/services/StationService.java` to match the fourth file which includes station data.
 
@@ -46,15 +46,14 @@ To configure the project, follow these steps:
 
 To run the project, follow these steps:
 
-1. Build and run the backend application either in your preferred IDE:
-   - From the `backend/src/main/java/backend/HelsinkiBikeApplication.java` file .
-   Or in your terminal, in the root directory of the backend project:
-   - First run `./mvnw clean install`, then `./mvnw spring-boot:run`.
-   Be patient! Starting the backend application will start the data import to your database. This can easily take 20 minutes or more.
-2. Build and start the frontend application:
+1. Build and run the backend application:
+   - Either in your preferred IDE from the `backend/src/main/java/backend/HelsinkiBikeApplication.java` file .
+   - Or in your terminal, in the root directory of the backend project. First run `./mvnw clean install`, then `./mvnw spring-boot:run`.
+2. Be patient! Starting the backend application will start the data import to your database. This can easily take 20 minutes or more.
+3. Build and start the frontend application:
    - Open a terminal in the root directory of the frontend project.
    - First run `npm install`, then `npm start`.
-5. Access the application in your web browser at `http://localhost:3000`.
+4. Access the application in your web browser at `http://localhost:3000`.
 
 ## Todo
 
