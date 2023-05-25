@@ -1,29 +1,44 @@
 # Helsinki City Bike App
 
-This application provides data about journeys made with city bikes in the Helsinki Capital area in summer 2021. Users can view basic information about bike journeys and stations, and get detailed information about stations from the listing, including the amount of departures and returns.
+This application provides data about journeys made with city bikes in the Helsinki Capital area in summer 2021 as well as the city bike stations.
+
+Users can view basic information about bike journeys and stations, and get detailed information about stations from the listing, including the amount of departures and returns.
+
+## Table of contents
+* [Used technologies](#used-technologies)
+* [Prerequisites](#prerequisites)
+* [Configuration](#configuration)
+* [How to Run the Project](#how-to-run-the-project)
+* [How to Run Tests](#how-to-run-tests)
+* [To Do](#to-do)
 
 ## Used technologies
 
-- Spring Boot: Java framework for building robust and scalable web applications.
-- MySQL: Relational database management system for storing and retrieving data.
-- React: JavaScript library for building user interfaces.
-- Redux: State management library for managing the application state.
-- React Router: Library for handling routing in a React application.
-- React Bootstrap: UI component library for building responsive and mobile-first applications.
+- Java
+- Spring Boot
+- JUnit
+- Mockito
+
+- MySQL
+
+- JavaScript
+- React
+- Redux
+- React Router
+- React Bootstrap
+- Cypress
 
 ## Prerequisites
 
 Before running the project locally, I recommend installing the following:
 
-- Java 17
-- MySQL 8
-- Node.js v18
+- [Java 17](https://www.oracle.com/java/technologies/downloads/#java17)
+- [MySQL 8](https://dev.mysql.com/downloads/)
+- [Node.js v18](https://nodejs.org/en/download)
 
-The project was made on Windows 11.
+The project was made  on Windows 11.
 
 ## Configuration
-
-To configure the project, follow these steps:
 
 1. Open the backend project in your preferred IDE or terminal.
 2. Configure the database connection details by creating a `application.properties` file which you should save in the `src/main/resources` directory.
@@ -44,8 +59,6 @@ To configure the project, follow these steps:
 
 ## How to Run the Project
 
-To run the project, follow these steps:
-
 1. Build and run the backend application:
    - Either in your preferred IDE from the `backend/src/main/java/backend/HelsinkiBikeApplication.java` file .
    - Or in your terminal, in the root directory of the backend project. First run `./mvnw clean install`, then `./mvnw spring-boot:run`.
@@ -55,11 +68,22 @@ To run the project, follow these steps:
    - First run `npm install`, then `npm start`.
 4. Access the application in your web browser at `http://localhost:3000`.
 
-## Todo
+## How to Run Tests
+
+- Backend tests: I recommend running these in your IDE. No setup required.
+- E2E tests: 
+   1. Start both backend and frontend applications.
+   2. In your terminal, go to the root directory of the frontend project and run `npm run cypress:open`.
+   3. When Cypress opens, choose E2E Testing.
+   4. Choose your browser.
+   5. Coose `helsinki_bike_app.cy.js` and run tests.
+
+## To Do
+
+Given more time, I would definately work on the following:
 
 - Refactor the data importing to something more robust and improve data validation.
 - Improve error handling.
-- Add tests to both backend and frontend.
-- Implement search functionality with filters and sorting options in frontend (already exists in backend).
-- Implement pagination in frontend (already exists in backend).
+- Add tests to both backend and especially frontend, improve E2E testing.
+- Add styles to UI.
 
