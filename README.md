@@ -28,9 +28,9 @@ To configure the project, follow these steps:
 1. Open the backend project in your preferred IDE or terminal.
 2. Configure the database connection details by creating a `application.properties` file which you should save in the `src/main/resources` directory.
 3. Update the following properties to your `application.properties` file with your specific MySQL database information:
-   - spring.datasource.url=<your datasource>
-   - spring.datasource.username=<your username>
-   - spring.datasource.password=<your password>
+   - spring.datasource.url=`<your datasource>`
+   - spring.datasource.username=`<your username>`
+   - spring.datasource.password=`<your password>`
    - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
    - server.port=8081
 4. Download these four data sets and save them in the `src/main/resources` directory of the backend application.
