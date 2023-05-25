@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,20 +22,43 @@ public class StationService {
   @Autowired
   private StationRepository stationRepository;
 
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
+
   public StationService(StationRepository stationRepository) {
     this.stationRepository = stationRepository;
   }
-/*
+
   @PostConstruct
   public void init() throws IOException {
     try {
       System.out.println("We are at StationService init()");
+      createStationTable();
       saveStationsFromCsv("C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//allstations.csv");
     } catch (IOException ex) {
       ex.printStackTrace();
     }
   }
-*/
+
+  public void createStationTable() {
+    String createTableQuery = "CREATE TABLE IF NOT EXISTS new_schema.station (" +
+            "station_id INT NOT NULL AUTO_INCREMENT, " +
+            "journey_station_id INT NULL, " +
+            "name_finnish VARCHAR(45) NULL, " +
+            "name_swedish VARCHAR(45) NULL, " +
+            "address_finnish VARCHAR(45) NULL, " +
+            "address_swedish VARCHAR(45) NULL, " +
+            "city_finnish VARCHAR(45) NULL, " +
+            "city_swedish VARCHAR(45) NULL, " +
+            "operator VARCHAR(45) NULL, " +
+            "capacity INT NULL, " +
+            "x DOUBLE NULL, " +
+            "y DOUBLE NULL, " +
+            "PRIMARY KEY (station_id))";
+
+    jdbcTemplate.execute(createTableQuery);
+  };
+
   @Transactional
   public void saveStationsFromCsv(String csvFilePath) throws IOException {
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFilePath), "UTF-8"));
