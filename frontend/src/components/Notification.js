@@ -4,6 +4,7 @@ const Notification = () => {
 	const notification = useSelector(({notification}) => notification);
 	const style = {
 		border: 'solid',
+		borderRadius: 5,
 		padding: 10,
 		borderWidth: 1,
 		margin: 20
