@@ -45,7 +45,7 @@ public class StationController {
     Station station = stationRepo.findById(id).orElse(null);
     
     if (station==null) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Station not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Station not found");
     }
 
     StationDetails stationDetails = new StationDetails(station.getName(), station.getAddress(), 
@@ -53,7 +53,6 @@ public class StationController {
           journeyRepo.totalReturnsPerStation(station.getJourneyStationId()),
           journeyRepo.averageDistanceOfDepartingJourney(station.getJourneyStationId()),
           journeyRepo.averageDistanceOfReturningJourney(station.getJourneyStationId()));
-          System.out.println("Station name is " + station.getName());
     
     return stationDetails;
   }

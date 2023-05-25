@@ -26,7 +26,6 @@ const App = () => {
 				await dispatch(initializeJourneys(journeys));
 			} catch (error) {
 				console.error('Error occurred during data initialization:', error);
-				// Handle the error here or perform any necessary actions
 			}
 		};
 		initializeData();

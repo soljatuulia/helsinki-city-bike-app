@@ -30,7 +30,7 @@ public class JourneyService {
   public JourneyService(JourneyRepository journeyRepository) {
     this.journeyRepository = journeyRepository;
   }
-
+/*
   @PostConstruct
   public void init() throws IOException {
     String csvFilePathMay = "C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeys0521.csv";
@@ -47,9 +47,9 @@ public class JourneyService {
       ex.printStackTrace();
     }
   }
-
+ */
   public void createJourneyTable() {
-    String createTableQuery = "CREATE TABLE IF NOT EXISTS new_schema.journey (" +
+    String createTableQuery = "CREATE TABLE IF NOT EXISTS journey (" +
             "journey_id INT NOT NULL AUTO_INCREMENT, " +
             "departure_time DATETIME NULL, " +
             "return_time DATETIME NULL, " +

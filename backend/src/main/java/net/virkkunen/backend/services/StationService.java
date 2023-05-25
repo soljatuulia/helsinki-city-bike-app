@@ -28,7 +28,7 @@ public class StationService {
   public StationService(StationRepository stationRepository) {
     this.stationRepository = stationRepository;
   }
-
+/*
   @PostConstruct
   public void init() throws IOException {
     try {
@@ -39,9 +39,9 @@ public class StationService {
       ex.printStackTrace();
     }
   }
-
+ */
   public void createStationTable() {
-    String createTableQuery = "CREATE TABLE IF NOT EXISTS new_schema.station (" +
+    String createTableQuery = "CREATE TABLE IF NOT EXISTS station (" +
             "station_id INT NOT NULL AUTO_INCREMENT, " +
             "journey_station_id INT NULL, " +
             "name_finnish VARCHAR(45) NULL, " +
