@@ -1,26 +1,16 @@
-# Helsinki City Bike App
+# :bicyclist: Helsinki City Bike App
 
 This application provides data about journeys made with city bikes in the Helsinki Capital area in summer 2021 as well as the city bike stations.
 
 Users can view basic information about bike journeys and stations, and get detailed information about stations from the listing, including the amount of departures and returns.
 
-## Table of contents
-* [Used technologies](#used-technologies)
-* [Prerequisites](#prerequisites)
-* [Configuration](#configuration)
-* [How to Run the Project](#how-to-run-the-project)
-* [How to Run Tests](#how-to-run-tests)
-* [To Do](#to-do)
-
-## Used technologies
+## :sparkles: Used technologies
 
 - Java
 - Spring Boot
 - JUnit
 - Mockito
-
 - MySQL
-
 - JavaScript
 - React
 - Redux
@@ -28,7 +18,7 @@ Users can view basic information about bike journeys and stations, and get detai
 - React Bootstrap
 - Cypress
 
-## Prerequisites
+## :floppy_disk: Prerequisites
 
 Before running the project locally, I recommend installing the following:
 
@@ -38,11 +28,12 @@ Before running the project locally, I recommend installing the following:
 
 The project was made  on Windows 11.
 
-## Configuration
+## :crystal_ball: Configuration
 
+1. Create an empty MySQL database with your preferred name, for example `bike_app_db`.
 1. Open the backend project in your preferred IDE or terminal.
 2. Configure the database connection details by creating a `application.properties` file which you should save in the `src/main/resources` directory.
-3. Update the following properties to your `application.properties` file with your specific MySQL database information:
+3. Update the following properties to your `application.properties` file with your specific MySQL database information. Remember to include your database name in your datasource.
    - spring.datasource.url=`<your datasource>`
    - spring.datasource.username=`<your username>`
    - spring.datasource.password=`<your password>`
@@ -57,7 +48,7 @@ The project was made  on Windows 11.
 6. Update the file path in `backend/src/main/java/backend/services/StationService.java` to match the fourth file which includes station data.
 
 
-## How to Run the Project
+## :zap: How to Run the Project
 
 1. Build and run the backend application:
    - Either in your preferred IDE from the `backend/src/main/java/backend/HelsinkiBikeApplication.java` file .
@@ -68,7 +59,7 @@ The project was made  on Windows 11.
    - First run `npm install`, then `npm start`.
 4. Access the application in your web browser at `http://localhost:3000`.
 
-## How to Run Tests
+## :muscle: How to Run Tests
 
 - Backend tests: I recommend running these in your IDE. No setup required.
 - E2E tests: 
@@ -78,7 +69,7 @@ The project was made  on Windows 11.
    4. Choose your browser.
    5. Coose `helsinki_bike_app.cy.js` and run tests.
 
-## To Do
+## :thought_balloon: To Do
 
 Given more time, I would definately work on the following:
 
