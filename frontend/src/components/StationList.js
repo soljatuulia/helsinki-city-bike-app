@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Table, NavLink } from 'react-bootstrap';
 
+import Notification from './Notification';
 import StationModal from './StationModal';
+
 import { fetchStationDetails, initializeStations, setSelectedStationDetails } from '../reducers/stationReducer';
+import { setNotification } from '../reducers/notificationReducer';
 
 const StationList = () => {
 	const [currentPage, setCurrentPage] = useState(0);
@@ -20,6 +23,10 @@ const StationList = () => {
 
 	const handleFiltering = (event) => {
 		setFilter(event.target.value);
+
+		if (event.target.value === '' && stations.content.length === 0) {
+			dispatch(setNotification('No stations found', 5));
+		}
 	};
 
 	const handlePageForward = () => {
@@ -29,7 +36,7 @@ const StationList = () => {
 	const handlePageBack = () => {
 		if (currentPage > 0) {
 			setCurrentPage((page) => page - 1);
-		}
+		} 
 	};
 
 	const handleShowDetails = (stationId) => {
@@ -50,6 +57,7 @@ const StationList = () => {
 			<Form>
 				<Form.Control id='searchbar' onChange={handleFiltering}/>
 			</Form>
+			<Notification />
 			<Table 
 				variant='default'
 				style={{ width:'100%', margin: '20px auto' }}

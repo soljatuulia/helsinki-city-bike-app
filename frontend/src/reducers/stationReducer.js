@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import stationService from '../services/stationService';
+import { setNotification } from './notificationReducer';
 
 const initialState = {
 	stations: {
@@ -17,10 +19,6 @@ const stationSlice = createSlice({
 	reducers: {
 		setStations(state, action) {
 			const { content, totalPages, totalElements, pageable } = action.payload;
-			//console.log('setStations content:', content);
-			//console.log('setStations totalPages:', totalPages);
-			//console.log('setStations totalElements:', totalElements);
-			//console.log('setStations pageable:', pageable);
       
 			return {
 				...state,
@@ -39,7 +37,7 @@ const stationSlice = createSlice({
 });
 
 export const initializeStations = (page, filter) => {
-	return async dispatch => {
+	return async (dispatch) => {
 		try {
 			const stations = await stationService.getAll(page, filter);
 			const payload = {
@@ -50,6 +48,10 @@ export const initializeStations = (page, filter) => {
 			};
 
 			dispatch(setStations(payload));
+
+			if (stations.content.length === 0) {
+				dispatch(setNotification('No stations found', 5)); 
+			}
 		} catch (error) {
 			console.error('Error occurred while initializing stations:', error);
 		}

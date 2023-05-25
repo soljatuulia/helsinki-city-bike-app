@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button, Table } from 'react-bootstrap';
 
 import { initializeJourneys } from '../reducers/journeyReducer';
+import { setNotification } from '../reducers/notificationReducer';
 import JourneyDateFilter from './JourneyDateFilter';
+import Notification from './Notification';
 
 const JourneyList = () => {
 	const [currentPage, setCurrentPage] = useState(0);  
@@ -42,6 +44,10 @@ const JourneyList = () => {
 		setDayFilter(day);
 		setMonthFilter(month);
 		setCurrentPage(0);
+
+		if (journeys.content.length === 0) {
+			dispatch(setNotification('No journeys found', 5)); 
+		}
 	};
 
 	return (
@@ -52,6 +58,7 @@ const JourneyList = () => {
         Sort journeys by clicking on column names.</p>
 				<JourneyDateFilter onFilter={(day, month) => handleDateFilter(day, month)} />
 			</div>
+			<Notification />
 			<Table 
 				variant='default'
 				style={{ width:'100%', margin: '20px auto' }}

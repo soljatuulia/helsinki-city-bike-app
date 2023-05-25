@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import journeyService from '../services/journeyService';
+import { setNotification } from './notificationReducer';
 
 const initialState = {
 	journeys: {
@@ -44,14 +46,16 @@ export const initializeJourneys = (page, column, order, day, month) => {
 				totalElements: journeys.totalElements,
 				pageable: journeys.pageable
 			};
-			console.log('initializeJourneys:', journeys);
 			dispatch(setJourneys(payload));
+
+			if (journeys.content.length === 0) {
+				dispatch(setNotification('No stations found', 5));
+			}
 		} catch (error) {
 			console.error('Error occurred while initializing journeys:', error);
 		}
 	};
 };
-
 
 export const { setJourneys } = journeySlice.actions;
 export default journeySlice.reducer;
