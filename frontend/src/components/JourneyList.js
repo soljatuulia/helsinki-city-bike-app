@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, Spinner } from 'react-bootstrap';
 
 import { initializeJourneys } from '../reducers/journeyReducer';
 import { setNotification } from '../reducers/notificationReducer';
@@ -8,6 +8,7 @@ import JourneyDateFilter from './JourneyDateFilter';
 import Notification from './Notification';
 
 const JourneyList = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(0);  
 	const [sortColumn, setSortColumn] = useState(null);
 	const [sortOrder, setSortOrder] = useState(null);
@@ -18,7 +19,10 @@ const JourneyList = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(initializeJourneys(currentPage, sortColumn, sortOrder, dayFilter, monthFilter));
+		setIsLoading(true);
+
+		dispatch(initializeJourneys(currentPage, sortColumn, sortOrder, dayFilter, monthFilter))
+			.then(() => setIsLoading(false));
 	}, [currentPage, sortColumn, sortOrder, dayFilter, monthFilter, dispatch]);
 
 	const handlePageForward = () => {
@@ -59,39 +63,47 @@ const JourneyList = () => {
 				<JourneyDateFilter onFilter={(day, month) => handleDateFilter(day, month)} />
 			</div>
 			<Notification />
-			<Table 
-				variant='default'
-				style={{ width:'100%', margin: '20px auto' }}
-				striped
-				hover
-				responsive>
-				<thead>
-					<tr>
-						<th id='departureStation' onClick={() => handleSort('departureStationName')}>
+			{isLoading ? (
+				<div style={{ textAlign: 'center', margin: '20px' }}>
+					<Spinner animation="border" role="status">
+						<span className="visually-hidden">Loading...</span>
+					</Spinner>
+				</div>
+			) : (
+				<Table 
+					variant='default'
+					style={{ width:'100%', margin: '20px auto' }}
+					striped
+					hover
+					responsive>
+					<thead>
+						<tr>
+							<th id='departureStation' onClick={() => handleSort('departureStationName')}>
               Departure station {sortColumn === 'departureStationName' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
-						</th>
-						<th id='returnStation' onClick={() => handleSort('returnStationName')}>
+							</th>
+							<th id='returnStation' onClick={() => handleSort('returnStationName')}>
               Return station {sortColumn === 'returnStationName' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
-						</th>
-						<th id='distance' onClick={() => handleSort('distanceInKm')}>
+							</th>
+							<th id='distance' onClick={() => handleSort('distanceInKm')}>
               Distance (km) {sortColumn === 'distanceInKm' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
-						</th>
-						<th id= 'duration' onClick={() => handleSort('durationInMin')}>
+							</th>
+							<th id= 'duration' onClick={() => handleSort('durationInMin')}>
               Duration (min) {sortColumn === 'durationInMin' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					{journeys.content.map(journey => (
-						<tr key={journey[0]}>
-							<td>{journey[3]}</td>
-							<td>{journey[4]}</td>
-							<td>{journey[5].toFixed(2)}</td>
-							<td>{journey[6].toFixed(2)}</td>
+							</th>
 						</tr>
-					))}
-				</tbody>
-			</Table>
+					</thead>
+					<tbody>
+						{journeys.content.map(journey => (
+							<tr key={journey[0]}>
+								<td>{journey[3]}</td>
+								<td>{journey[4]}</td>
+								<td>{journey[5].toFixed(2)}</td>
+								<td>{journey[6].toFixed(2)}</td>
+							</tr>
+						))}
+					</tbody>
+				</Table>
+			)}
 			<div style={{ display: 'flex', justifyContent: 'space-between', margin: 'auto auto 20px auto' }}>
 				<Button variant='outline-warning' onClick={handlePageBack}>Previous</Button>
 				<Button variant='outline-warning' onClick={handlePageForward}>Next</Button>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Form, Table, NavLink } from 'react-bootstrap';
+import { Button, Form, Table, NavLink, Spinner } from 'react-bootstrap';
 
 import Notification from './Notification';
 import StationModal from './StationModal';
@@ -9,6 +9,7 @@ import { fetchStationDetails, initializeStations, setSelectedStationDetails } fr
 import { setNotification } from '../reducers/notificationReducer';
 
 const StationList = () => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(0);
 	const [filter, setFilter] = useState('');
 
@@ -18,7 +19,10 @@ const StationList = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(initializeStations(currentPage, filter));
+		setIsLoading(true);
+
+		dispatch(initializeStations(currentPage, filter))
+			.then(() => setIsLoading(false));
 	}, [currentPage, filter, dispatch]);
 
 	const handleFiltering = (event) => {
@@ -58,38 +62,46 @@ const StationList = () => {
 				<Form.Control id='searchbar' onChange={handleFiltering}/>
 			</Form>
 			<Notification />
-			<Table 
-				variant='default'
-				style={{ width:'100%', margin: '20px auto' }}
-				striped
-				hover
-				responsive>
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Address</th>
-						<th>Info</th>
-					</tr>
-				</thead>
-				<tbody>
-					{stations.content.map((station) => (
-						<tr key={station.stationId}>
-							<td>{station.name}</td>
-							<td>{station.address}</td>
-							<td>
-								<NavLink
-									id='stationDetails'
-									value={station.stationId}
-									onClick={() => handleShowDetails(station.stationId)}
-									style={{ color: 'DarkGoldenRod' }}
-								>
-                  station details
-								</NavLink>
-							</td>
+			{isLoading ? (
+				<div style={{ textAlign: 'center', margin: '20px' }}>
+					<Spinner animation="border" role="status">
+						<span className="visually-hidden">Loading...</span>
+					</Spinner>
+				</div>
+			) : (
+				<Table 
+					variant='default'
+					style={{ width:'100%', margin: '20px auto' }}
+					striped
+					hover
+					responsive>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Address</th>
+							<th>Info</th>
 						</tr>
-					))}
-				</tbody>
-			</Table>
+					</thead>
+					<tbody>
+						{stations.content.map((station) => (
+							<tr key={station.stationId}>
+								<td>{station.name}</td>
+								<td>{station.address}</td>
+								<td>
+									<NavLink
+										id='stationDetails'
+										value={station.stationId}
+										onClick={() => handleShowDetails(station.stationId)}
+										style={{ color: 'DarkGoldenRod' }}
+									>
+                  station details
+									</NavLink>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</Table>
+			)}
 			<StationModal stationDetails={stationDetails} handleCloseDetails={handleCloseDetails} />
 			<div style={{ display: 'flex', justifyContent: 'space-between', margin: 'auto auto 20px auto' }}>
 				<Button variant='outline-warning' onClick={handlePageBack}>Previous</Button>
