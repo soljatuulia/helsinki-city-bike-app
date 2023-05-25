@@ -33,5 +33,8 @@ replay_pid*
 application.properties
 .env
 
-### VS Code ###
+# VS Code
 .vscode/
+
+# other
+~BROMIUM
