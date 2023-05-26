@@ -28,18 +28,20 @@ public class StationService {
   public StationService(StationRepository stationRepository) {
     this.stationRepository = stationRepository;
   }
-/*
+
   @PostConstruct
   public void init() throws IOException {
-    try {
-      System.out.println("We are at StationService init()");
+    // update correct file path to station data below
+    String csvFilePathStations = "";
+
+    try {      
       createStationTable();
-      saveStationsFromCsv("C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//allstations.csv");
+      saveStationsFromCsv(csvFilePathStations);
     } catch (IOException ex) {
       ex.printStackTrace();
     }
   }
- */
+
   public void createStationTable() {
     String createTableQuery = "CREATE TABLE IF NOT EXISTS station (" +
             "station_id INT NOT NULL AUTO_INCREMENT, " +

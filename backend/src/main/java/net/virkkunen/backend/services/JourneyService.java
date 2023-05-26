@@ -30,12 +30,13 @@ public class JourneyService {
   public JourneyService(JourneyRepository journeyRepository) {
     this.journeyRepository = journeyRepository;
   }
-/*
+
   @PostConstruct
   public void init() throws IOException {
-    String csvFilePathMay = "C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeys0521.csv";
-    String csvFilePathJune = "C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeys0621.csv";
-    String csvFilePathJuly = "C://helsinki-city-bike-app//helsinki-city-bike-app//backend//src//main//resources//journeys0721.csv";
+    // update correct file paths to journey data (May, June and July) below
+    String csvFilePathMay = "";
+    String csvFilePathJune = "";
+    String csvFilePathJuly = "";
     
     try {
       System.out.println("We are in JourneyService init()");
@@ -47,7 +48,7 @@ public class JourneyService {
       ex.printStackTrace();
     }
   }
- */
+
   public void createJourneyTable() {
     String createTableQuery = "CREATE TABLE IF NOT EXISTS journey (" +
             "journey_id INT NOT NULL AUTO_INCREMENT, " +
