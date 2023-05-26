@@ -2,11 +2,10 @@
   "configurations": [
     {
       "type": "java",
-      "name": "HelsinkibikeApplication",
+      "name": "HelsinkiBikeApplication",
       "request": "launch",
-      "mainClass": "net.virkkunen.helsinkibike.HelsinkibikeApplication",
-      "projectName": "helsinkibike",
-      "vmArgs": "--enable-preview"
-    },
+      "mainClass": "net.virkkunen.backend.HelsinkiBikeApplication",
+      "projectName": "backend"
+    }
   ]
 }
