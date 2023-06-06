@@ -91,12 +91,12 @@ const StationList = () => {
 								<td>{station.address}</td>
 								<td>
 									<NavLink
+										className='view-more'
 										id='stationDetails'
 										value={station.stationId}
 										onClick={() => handleShowDetails(station.stationId)}
-										style={{ color: 'DarkGoldenRod' }}
 									>
-                  station details
+                  view more
 									</NavLink>
 								</td>
 							</tr>

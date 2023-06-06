@@ -7,7 +7,7 @@ const Home = () => {
 		<div>
 			<Row>
 				<Col>
-					<img src={bicycleImg} alt='Home Background' />
+					<img src={bicycleImg} />
 				</Col>
 				<Col>
 					<h1>Helsinki Bike App</h1>
