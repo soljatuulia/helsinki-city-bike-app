@@ -31,7 +31,7 @@ const StationList = () => {
 		setFilter(event.target.value);
 
 		if (event.target.value === '' && stations.content.length === 0) {
-			dispatch(setNotification('No stations found', 5));
+			dispatch(setNotification('No stations found!', 5));
 		}
 	};
 

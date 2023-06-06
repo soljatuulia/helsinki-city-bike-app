@@ -52,7 +52,7 @@ const JourneyList = () => {
 		setCurrentPage(0);
 
 		if (journeys.content.length === 0) {
-			dispatch(setNotification('No journeys found', 5)); 
+			dispatch(setNotification('No journeys found!', 5)); 
 		}
 	};
 
