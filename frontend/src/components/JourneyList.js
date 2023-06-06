@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Table, Spinner } from 'react-bootstrap';
 
+import '../custom.css';
+
 import { initializeJourneys } from '../reducers/journeyReducer';
 import { setNotification } from '../reducers/notificationReducer';
 import JourneyDateFilter from './JourneyDateFilter';
@@ -55,40 +57,59 @@ const JourneyList = () => {
 	};
 
 	return (
-		<div style={{ width: '90%', margin: '0 auto' }}>
-			<div style={{ textAlign: 'center' }}>
-				<h2 style={{ margin: '20px auto' }}>Journeys</h2>
+		<div className='content'>
+			<div>
+				<h2 className='h2'>Journeys</h2>
 				<p>Filter journeys by date by choosing day and month below.<br />
         Sort journeys by clicking on column names.</p>
 				<JourneyDateFilter onFilter={(day, month) => handleDateFilter(day, month)} />
 			</div>
 			<Notification />
 			{isLoading ? (
-				<div style={{ textAlign: 'center', margin: '20px' }}>
-					<Spinner animation="border" role="status">
-						<span className="visually-hidden">Loading...</span>
+				<div className='spinner'>
+					<Spinner animation='border' role='status'>
+						<span className='visually-hidden'>Loading...</span>
 					</Spinner>
 				</div>
 			) : (
 				<Table 
 					variant='default'
-					style={{ width:'100%', margin: '20px auto' }}
+					className='table'
 					striped
 					hover
 					responsive>
 					<thead>
 						<tr>
-							<th id='departureStation' onClick={() => handleSort('departureStationName')}>
-              Departure station {sortColumn === 'departureStationName' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
+							<th 
+								id='departureStation' 
+								onClick={() => handleSort('departureStationName')}>
+              Departure station 
+								{sortColumn === 'departureStationName' && 
+                <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
 							</th>
-							<th id='returnStation' onClick={() => handleSort('returnStationName')}>
-              Return station {sortColumn === 'returnStationName' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
+							<th 
+								id='returnStation' 
+								onClick={() => handleSort('returnStationName')}>
+              Return station 
+								{sortColumn === 'returnStationName' && 
+                <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />
+								}
 							</th>
-							<th id='distance' onClick={() => handleSort('distanceInKm')}>
-              Distance (km) {sortColumn === 'distanceInKm' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
+							<th 
+								id='distance' 
+								onClick={() => handleSort('distanceInKm')}>
+              Distance (km) 
+								{sortColumn === 'distanceInKm' && 
+                <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />
+								}
 							</th>
-							<th id= 'duration' onClick={() => handleSort('durationInMin')}>
-              Duration (min) {sortColumn === 'durationInMin' && <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />}
+							<th 
+								id= 'duration' 
+								onClick={() => handleSort('durationInMin')}>
+              Duration (min) 
+								{sortColumn === 'durationInMin' && 
+                <i className={`bi bi-caret-${sortOrder === 'asc' ? 'up' : 'down'}`} />
+								}
 							</th>
 						</tr>
 					</thead>
@@ -104,9 +125,17 @@ const JourneyList = () => {
 					</tbody>
 				</Table>
 			)}
-			<div style={{ display: 'flex', justifyContent: 'space-between', margin: 'auto auto 20px auto' }}>
-				<Button variant='outline-warning' onClick={handlePageBack}>Previous</Button>
-				<Button variant='outline-warning' onClick={handlePageForward}>Next</Button>
+			<div className='page-button-group'>
+				<Button 
+					className='page-button' 
+					variant='outline-warning' 
+					onClick={handlePageBack}>
+        Previous</Button>
+				<Button 
+					className='page-button'  
+					variant='outline-warning' 
+					onClick={handlePageForward}>
+        Next</Button>
 			</div>
 		</div>
 	);

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Table, NavLink, Spinner } from 'react-bootstrap';
 
+import '../custom.css';
+
 import Notification from './Notification';
 import StationModal from './StationModal';
 
@@ -52,9 +54,9 @@ const StationList = () => {
 	};
 
 	return (
-		<div style={{ width: '90%', margin: '0 auto' }}>
-			<div style={{ textAlign: 'center' }}>
-				<h2 style={{ margin: '20px auto' }}>Stations</h2>
+		<div className='content'>
+			<div>
+				<h2 className='h2'>Stations</h2>
 				<p>Search for stations by typing the name or address below.<br />
         Click on <i>station details</i> to view more information.</p>
 			</div>
@@ -63,7 +65,7 @@ const StationList = () => {
 			</Form>
 			<Notification />
 			{isLoading ? (
-				<div style={{ textAlign: 'center', margin: '20px' }}>
+				<div className='spinner'>
 					<Spinner animation="border" role="status">
 						<span className="visually-hidden">Loading...</span>
 					</Spinner>
@@ -71,7 +73,7 @@ const StationList = () => {
 			) : (
 				<Table 
 					variant='default'
-					style={{ width:'100%', margin: '20px auto' }}
+					className='table'
 					striped
 					hover
 					responsive>
@@ -103,9 +105,17 @@ const StationList = () => {
 				</Table>
 			)}
 			<StationModal stationDetails={stationDetails} handleCloseDetails={handleCloseDetails} />
-			<div style={{ display: 'flex', justifyContent: 'space-between', margin: 'auto auto 20px auto' }}>
-				<Button variant='outline-warning' onClick={handlePageBack}>Previous</Button>
-				<Button variant='outline-warning' onClick={handlePageForward}>Next</Button>
+			<div className='page-button-group'>
+				<Button 
+					className='page-button' 
+					variant='outline-warning' 
+					onClick={handlePageBack}>
+        Previous</Button>
+				<Button 
+					className='page-button'  
+					variant='outline-warning' 
+					onClick={handlePageForward}>
+        Next</Button>
 			</div>
 		</div>
 	);
