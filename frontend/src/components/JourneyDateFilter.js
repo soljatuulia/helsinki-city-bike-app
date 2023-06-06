@@ -38,27 +38,27 @@ const JourneyDateFilter = ({ onFilter }) => {
 	return (
 		<div>
 			<ButtonGroup>
-				<Dropdown style={{ margin: 'auto 5px' }} onSelect={handleDaySelect}>
+				<Dropdown className='dropdown' onSelect={handleDaySelect}>
 					<Dropdown.Toggle variant='outline-secondary' id='day-dropdown'>
 						{selectedDay || 'Select Day'}
 					</Dropdown.Toggle>
 					<Dropdown.Menu>{renderDayOptions()}</Dropdown.Menu>
 				</Dropdown>
-				<Dropdown style={{ margin: 'auto 5px' }} onSelect={handleMonthSelect}>
+				<Dropdown className='dropdown' onSelect={handleMonthSelect}>
 					<Dropdown.Toggle variant='outline-secondary' id='month-dropdown'>
 						{selectedMonth || 'Select Month'}
 					</Dropdown.Toggle>
 					<Dropdown.Menu>
 						<Dropdown.Item id='May' eventKey='5'>May</Dropdown.Item>
-						<Dropdown.Item eventKey='6'>June</Dropdown.Item>
-						<Dropdown.Item eventKey='7'>July</Dropdown.Item>
+						<Dropdown.Item id='June' eventKey='6'>June</Dropdown.Item>
+						<Dropdown.Item id='July' eventKey='7'>July</Dropdown.Item>
 					</Dropdown.Menu>
 				</Dropdown>
 			</ButtonGroup>
-			<Button id='filter' style={{ margin: 'auto 5px' }} variant='warning' onClick={handleFilter}>
+			<Button id='filter' className='button' variant='warning' onClick={handleFilter}>
         Filter
 			</Button>
-			<Button id='reset' style={{ margin: 'auto 5px' }} variant='secondary' onClick={handleReset}>
+			<Button id='reset' className='button' variant='secondary' onClick={handleReset}>
         Reset
 			</Button>
 		</div>

@@ -66,8 +66,8 @@ const StationList = () => {
 			<Notification />
 			{isLoading ? (
 				<div className='spinner'>
-					<Spinner animation="border" role="status">
-						<span className="visually-hidden">Loading...</span>
+					<Spinner animation='border' role='status'>
+						<span className='visually-hidden'>Loading...</span>
 					</Spinner>
 				</div>
 			) : (
@@ -107,12 +107,12 @@ const StationList = () => {
 			<StationModal stationDetails={stationDetails} handleCloseDetails={handleCloseDetails} />
 			<div className='page-button-group'>
 				<Button 
-					className='page-button' 
+					className='button' 
 					variant='outline-warning' 
 					onClick={handlePageBack}>
         Previous</Button>
 				<Button 
-					className='page-button'  
+					className='button'  
 					variant='outline-warning' 
 					onClick={handlePageForward}>
         Next</Button>

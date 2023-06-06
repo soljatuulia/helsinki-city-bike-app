@@ -127,12 +127,12 @@ const JourneyList = () => {
 			)}
 			<div className='page-button-group'>
 				<Button 
-					className='page-button' 
+					className='button' 
 					variant='outline-warning' 
 					onClick={handlePageBack}>
         Previous</Button>
 				<Button 
-					className='page-button'  
+					className='button'  
 					variant='outline-warning' 
 					onClick={handlePageForward}>
         Next</Button>
