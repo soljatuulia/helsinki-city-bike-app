@@ -10,7 +10,7 @@ import net.virkkunen.backend.entities.Station;
 
 public interface StationRepository extends JpaRepository<Station,Integer> {
 
-  @Query("SELECT s FROM Station s WHERE s.name LIKE %:filter% OR s.address LIKE %:filter%")
+  @Query("SELECT s FROM Station s WHERE s.name LIKE %:filter% OR s.address LIKE %:filter% ORDER BY s.name")
   public Page<Station> filterStations(Pageable pageable, @Param("filter") String filter);
 
 }
