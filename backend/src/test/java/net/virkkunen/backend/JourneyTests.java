@@ -204,7 +204,7 @@ public class JourneyTests {
     "departureStationName=Keskustori, returnStationName=Pispalanharju]";
     String actual = journey.toString();
 
-assertEquals(expected, actual);
+    assertEquals(expected, actual);
   }
 
 }
