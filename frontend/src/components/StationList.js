@@ -58,7 +58,7 @@ const StationList = () => {
 			<div>
 				<h2 className='h2'>Stations</h2>
 				<p>Search for stations by typing the name or address below.<br />
-        Click on <i>station details</i> to view more information.</p>
+        Click on <i>view more</i> to view more information.</p>
 			</div>
 			<Form>
 				<Form.Control id='searchbar' onChange={handleFiltering}/>
