@@ -18,10 +18,6 @@ const journeySlice = createSlice({
 	reducers: {
 		setJourneys(state, action) {
 			const { content, totalPages, totalElements, pageable } = action.payload;
-			console.log('setJourneys content:', content);
-			console.log('setJourneys totalPages:', totalPages);
-			console.log('setJourneys totalElements:', totalElements);
-			console.log('setJourneys pageable:', pageable);
       
 			return {
 				...state,
