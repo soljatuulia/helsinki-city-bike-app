@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "station")
@@ -15,6 +16,7 @@ public class Station {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name="station_id")
   private Integer stationId;
+  @NotBlank(message = "Journey Station ID is required")
   @Column(name = "journey_station_id", nullable = false)
   private Integer journeyStationId;  
   @Column(name = "name_finnish", nullable = false)

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import jakarta.validation.Valid;
 import net.virkkunen.backend.entities.Station;
 import net.virkkunen.backend.entities.StationDetails;
 import net.virkkunen.backend.repositories.JourneyRepository;
@@ -61,9 +62,10 @@ public class StationController {
   }
 
   @PostMapping(value = "/stations")
-  public Station createStation(@RequestBody Station station) {
+  public Station createStation(@RequestBody @Valid Station station) {
       stationRepo.saveAndFlush(station);
       return station;
   }
+  
     
 }
