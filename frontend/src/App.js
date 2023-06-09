@@ -12,6 +12,7 @@ import stations from './services/stationService';
 import journeys from './services/journeyService';
 import { initializeStations } from './reducers/stationReducer';
 import { initializeJourneys } from './reducers/journeyReducer';
+import StationForm from './components/StationForm';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const App = () => {
 					<Route path="/" element={<Home />} />
 					<Route path="/journeys" element={<JourneyList />} />
 					<Route path="/stations" element={<StationList />} />
+					<Route path="/addstation" element={<StationForm />} />
 				</Routes>
 
 			</Container>

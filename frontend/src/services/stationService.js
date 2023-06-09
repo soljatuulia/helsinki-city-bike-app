@@ -27,4 +27,14 @@ const getStationDetails = async (id) => {
 	}
 };
 
-export default { getAll, getStationDetails };
+const addStation = async (object) => {
+	try {
+		const response = await axios.post(baseUrl, object);
+		return response.data;
+	} catch (error) {
+		console.error('Error occurred while adding a station:', error);
+		throw error;
+	}
+};
+
+export default { getAll, getStationDetails, addStation };

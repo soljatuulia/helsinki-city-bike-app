@@ -3,6 +3,12 @@
   width: 100px;
 }
 
+.button-add {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}
+
 .content {
   width: 90%;
   margin: 0 auto;
@@ -40,7 +46,7 @@
   background-color: lightpink;
 }
 
-.page-button-group {
+.button-group {
   display: flex;
   justify-content: center;
   margin: auto auto 20px auto;

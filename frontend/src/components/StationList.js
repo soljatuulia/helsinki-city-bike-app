@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button, Form, Table, NavLink, Spinner } from 'react-bootstrap';
 
 import '../custom.css';
@@ -58,10 +59,11 @@ const StationList = () => {
 			<div>
 				<h2 className='h2'>Stations</h2>
 				<p>Search for stations by typing the name or address below.<br />
-        Click on <i>view more</i> to view more information.</p>
+        Click on <i>view more</i> to view more information.<br />
+        You can also <Link to="/addStation">add a new station</Link>.</p>
 			</div>
 			<Form>
-				<Form.Control id='searchbar' onChange={handleFiltering}/>
+				<Form.Control id='searchbar' placeholder="Type to start search" onChange={handleFiltering}/>
 			</Form>
 			<Notification />
 			{isLoading ? (
@@ -105,7 +107,7 @@ const StationList = () => {
 				</Table>
 			)}
 			<StationModal stationDetails={stationDetails} handleCloseDetails={handleCloseDetails} />
-			<div className='page-button-group'>
+			<div className='button-group'>
 				<Button 
 					className='button' 
 					variant='outline-warning' 

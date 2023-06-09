@@ -32,6 +32,10 @@ const stationSlice = createSlice({
 		},
 		setSelectedStationDetails(state, action) {
 			state.stationDetails = action.payload;
+		},
+		appendStation(state, action) {
+			console.log('appendStation: ', state.stations.content);
+			state.stations.content.push(action.payload);
 		}
 	}
 });
@@ -69,5 +73,18 @@ export const fetchStationDetails = (stationId) => {
 	};
 };
 
-export const { setStations, setSelectedStationDetails } = stationSlice.actions;
+export const createStation = (object) => {
+	console.log('createStation', object);
+	return async dispatch => {
+		try {
+			const newStation = await stationService.addStation(object);
+			dispatch(appendStation(newStation));
+			console.log('dispatch: ', newStation);
+		} catch (error) {
+			console.log('Error adding station: ', error);
+		}
+	};
+};
+
+export const { setStations, setSelectedStationDetails, appendStation } = stationSlice.actions;
 export default stationSlice.reducer;
