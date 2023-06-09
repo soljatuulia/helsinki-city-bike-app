@@ -1,5 +1,6 @@
 .button {
   margin: auto 5px;
+  width: 100px;
 }
 
 .content {
@@ -10,6 +11,11 @@
 
 .dropdown {
   margin: auto 5px;
+}
+
+.dropdown-menu {
+  height: 300px;
+  overflow-y: scroll;
 }
 
 .h2 {
@@ -57,11 +63,3 @@
 .view-more {
   color: darkgoldenrod;
 }
-
-/*
-  background-color: #ff0000;
-  color: #ffffff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  */

@@ -42,7 +42,7 @@ const JourneyDateFilter = ({ onFilter }) => {
 					<Dropdown.Toggle variant='outline-secondary' id='day-dropdown'>
 						{selectedDay || 'Select Day'}
 					</Dropdown.Toggle>
-					<Dropdown.Menu>{renderDayOptions()}</Dropdown.Menu>
+					<Dropdown.Menu className='dropdown-menu'>{renderDayOptions()}</Dropdown.Menu>
 				</Dropdown>
 				<Dropdown className='dropdown' onSelect={handleMonthSelect}>
 					<Dropdown.Toggle variant='outline-secondary' id='month-dropdown'>
