@@ -15,7 +15,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.annotation.PostConstruct;
 import net.virkkunen.backend.entities.Journey;
 import net.virkkunen.backend.repositories.JourneyRepository;
 
@@ -31,8 +30,7 @@ public class JourneyService {
     this.journeyRepository = journeyRepository;
   }
 
-  @PostConstruct
-  public void init() throws IOException {
+  public void importJourneyData() throws IOException {
     // update correct file paths to journey data (May, June and July) below
     String csvFilePathMay = "";
     String csvFilePathJune = "";

@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.annotation.PostConstruct;
 import net.virkkunen.backend.entities.Station;
 import net.virkkunen.backend.repositories.StationRepository;
 
@@ -29,8 +28,7 @@ public class StationService {
     this.stationRepository = stationRepository;
   }
 
-  @PostConstruct
-  public void init() throws IOException {
+  public void importStationData() throws IOException {
     // update correct file path to station data below
     String csvFilePathStations = "";
 
