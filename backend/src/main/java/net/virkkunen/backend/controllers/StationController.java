@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,13 +50,20 @@ public class StationController {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Station not found");
     }
 
-    StationDetails stationDetails = new StationDetails(station.getName(), station.getAddress(), 
+    StationDetails stationDetails = new StationDetails(
+          station.getName(), station.getAddress(), 
           journeyRepo.totalDepartsPerStation(station.getJourneyStationId()), 
           journeyRepo.totalReturnsPerStation(station.getJourneyStationId()),
           journeyRepo.averageDistanceOfDepartingJourney(station.getJourneyStationId()),
           journeyRepo.averageDistanceOfReturningJourney(station.getJourneyStationId()));
     
     return stationDetails;
+  }
+
+  @PostMapping(value = "/stations")
+  public Station createStation(@RequestBody Station station) {
+      stationRepo.saveAndFlush(station);
+      return station;
   }
     
 }
