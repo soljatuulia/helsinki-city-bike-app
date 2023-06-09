@@ -16,8 +16,8 @@ const JourneyList = () => {
 	const [sortOrder, setSortOrder] = useState(null);
 	const [dayFilter, setDayFilter] = useState(null);
 	const [monthFilter, setMonthFilter] = useState(null);
+	
 	const journeys = useSelector(state =>  state.journey.journeys);
-
 	const dispatch = useDispatch();
 
 	useEffect(() => {
