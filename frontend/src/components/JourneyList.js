@@ -125,7 +125,7 @@ const JourneyList = () => {
 					</tbody>
 				</Table>
 			)}
-			<div className='page-button-group'>
+			<div className='button-group'>
 				<Button 
 					className='button' 
 					variant='outline-warning' 
