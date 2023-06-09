@@ -16,25 +16,15 @@ import { initializeJourneys } from './reducers/journeyReducer';
 const App = () => {
 	const dispatch = useDispatch();
 
-	console.log('Before useEffect');
-
 	useEffect(() => {
-		console.log('In useEffect');
-		const initializeData = async () => {
-			try {
-				await dispatch(initializeStations(stations));
-				await dispatch(initializeJourneys(journeys));
-			} catch (error) {
-				console.error('Error occurred during data initialization:', error);
-			}
-		};
-		initializeData();
+		dispatch(initializeStations(stations));
+		dispatch(initializeJourneys(journeys));
 	}, [dispatch]);
 
 	return (
 		<div>
 			<Container>
-				<Navigation /><br />
+				<Navigation />
       
 				<Routes>
 					<Route path="/" element={<Home />} />
