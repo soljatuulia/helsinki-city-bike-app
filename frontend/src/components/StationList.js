@@ -60,7 +60,7 @@ const StationList = () => {
 				<h2 className='h2'>Stations</h2>
 				<p>Search for stations by typing the name or address below.<br />
         Click on <i>view more</i> to view more information.<br />
-        You can also <Link to="/addStation">add a new station</Link>.</p>
+        You can also <Link to="/addstation">add a new station</Link>.</p>
 			</div>
 			<Form>
 				<Form.Control id='searchbar' placeholder="Type to start search" onChange={handleFiltering}/>
