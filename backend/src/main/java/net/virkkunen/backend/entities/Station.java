@@ -17,7 +17,7 @@ public class Station {
   @Column(name="station_id")
   private Integer stationId;
   @NotBlank(message = "Journey Station ID is required")
-  @Column(name = "journey_station_id", nullable = false)
+  @Column(name = "journey_station_id", nullable = false, unique = true)
   private Integer journeyStationId;  
   @Column(name = "name_finnish", nullable = false)
   private String name;  
