@@ -20,7 +20,8 @@ describe('Helsinki Bike App', function() {
 			});
       
 			it('descending by departure station name when clicking twice on appropriate column name', function() {
-				cy.get('#departureStation').click().click();
+				cy.get('#departureStation').click();
+				cy.get('#departureStation', { timeout: 15000 }).click();
 				cy.contains('Ympyrätalo', { timeout: 15000 });
 			});
 
@@ -30,7 +31,8 @@ describe('Helsinki Bike App', function() {
 			});
       
 			it('descending by return station name when clicking twice on appropriate column name', function() {
-				cy.get('#returnStation').click().click();
+				cy.get('#returnStation').click();
+				cy.get('#returnStation', { timeout: 15000 }).click();
 				cy.contains('Ympyrätalo', { timeout: 15000 });
 			});
 
@@ -40,7 +42,8 @@ describe('Helsinki Bike App', function() {
 			});
   
 			it('descending by distance when clicking twice on appropriate column name', function() {
-				cy.get('#distance').click().click();
+				cy.get('#distance').click();
+				cy.get('#distance', { timeout: 20000 }).click();
 				cy.contains('3680.77', { timeout: 20000 });
 			});
   
@@ -50,7 +53,8 @@ describe('Helsinki Bike App', function() {
 			});
       
 			it('descending by duration when clicking twice on appropriate column name', function() {
-				cy.get('#duration').click().click();
+				cy.get('#duration').click();
+				cy.get('#duration', { timeout: 18000 }).click();
 				cy.contains('81495.48', { timeout: 18000 });
 			});
 		});
@@ -84,7 +88,7 @@ describe('Helsinki Bike App', function() {
 		});
 
 		it('shows station details by clicking link', function() {
-			cy.get('#stationDetails').contains('station details').click();
+			cy.get('#stationDetails').contains('view more').click();
 			cy.contains('Number of departures', { timeout: 18000 });
 		});
 
@@ -101,4 +105,48 @@ describe('Helsinki Bike App', function() {
 		});
 	});
 
+	describe('station form', function() {
+		beforeEach(function() {
+			cy.visit('http://localhost:3000/addstation');
+		});
+
+		it('can be opened', function() {
+			cy.contains('Add station');
+		});
+
+		it('does not add station to db if user does not enter ID', function() {
+			cy.get('#formFinnishName').type('Keskustori');
+			cy.get('#formSwedishName').type('Centraltorget');
+			cy.get('#formFinnishAddress').type('Keskustori 1');
+			cy.get('#formSwedishAddress').type('Centraltorget 1');
+			cy.get('#formFinnishCity').type('Tampere');
+			cy.get('#formSwedishCity').type('Tammerfors');
+			cy.get('#formOperator').type('TKL');
+			cy.get('#formCapacity').type('25');
+			cy.get('#formX').type('61');
+			cy.get('#formY').type('24');
+
+			cy.get('#button-add').click();
+
+			cy.contains('Station ID is required!');
+		});
+
+		it('does not add station to db if user enters negative number as ID', function() {
+			cy.get('#formId').type('-100');
+			cy.get('#formFinnishName').type('Keskustori');
+			cy.get('#formSwedishName').type('Centraltorget');
+			cy.get('#formFinnishAddress').type('Keskustori 1');
+			cy.get('#formSwedishAddress').type('Centraltorget 1');
+			cy.get('#formFinnishCity').type('Tampere');
+			cy.get('#formSwedishCity').type('Tammerfors');
+			cy.get('#formOperator').type('TKL');
+			cy.get('#formCapacity').type('25');
+			cy.get('#formX').type('61');
+			cy.get('#formY').type('24');
+
+			cy.get('#button-add').click();
+
+			cy.contains('No negative numbers allowed!');
+		});
+	}); 
 });

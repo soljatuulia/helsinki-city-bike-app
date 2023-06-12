@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { Button, Form, Row, Col } from 'react-bootstrap';
 
+import Notification from './Notification';
 import { createStation } from '../reducers/stationReducer';
 import { setNotification } from '../reducers/notificationReducer';
 
@@ -27,7 +28,11 @@ const StationForm = () => {
 
 		if (Number(stationId) < 0 || Number(capacity) < 0 || Number(x) < 0 || Number(y) < 0) {
 			dispatch(setNotification('No negative numbers allowed!', 5));
-			console.log('Invalid input: negative numbers not allowed.');
+			return;
+		} 
+
+		if (stationId === '' || stationId === null || isNaN(Number(stationId))) {
+			dispatch(setNotification('Station ID is required!', 5));
 			return;
 		} 
 
@@ -67,88 +72,148 @@ const StationForm = () => {
 			<div className='content'>
 				<h2 className='h2'>Add station</h2>
 			</div>
+
+			<Notification />
+
 			<Form>
-				<Form.Group className="station-form" controlId="formId">
-					<Form.Label>ID</Form.Label>
-					<Form.Control type="id" placeholder="Enter unique ID" value={stationId} onChange={(e) => setStationId(e.target.value)} />
-				</Form.Group>
+				<Row>
+					<Col>
+						<Form.Group className='station-form' controlId='formId'>
+							<Form.Label>ID</Form.Label>
+							<Form.Control 
+								type='id' 
+								placeholder='Enter unique ID' 
+								value={stationId} 
+								onChange={(e) => setStationId(e.target.value)} />
+							<Form.Text className='text-muted'>
+                ID is required
+							</Form.Text>
+						</Form.Group>
+					</Col>
+					<Col></Col>
+				</Row>
 
 				<Row>
 					<Col>
-						<Form.Group className="station-form" controlId="formFinnishName">
+						<Form.Group className='station-form' controlId='formFinnishName'>
 							<Form.Label>Name of station in Finnish</Form.Label>
-							<Form.Control type="finnish-name" placeholder="Finnish name" value={finnishName} onChange={(e) => setFinnishName(e.target.value)} />
+							<Form.Control 
+								type='finnish-name' 
+								placeholder='Finnish name' 
+								value={finnishName} 
+								onChange={(e) => setFinnishName(e.target.value)} />
 						</Form.Group>
 					</Col>
 					<Col>
-						<Form.Group className="station-form" controlId="formSwedishName">
+						<Form.Group className='station-form' controlId='formSwedishName'>
 							<Form.Label>Name of station in Swedish</Form.Label>
-							<Form.Control type="swedish-name" placeholder="Swedish name" value={swedishName} onChange={(e) => setSwedishName(e.target.value)} />
+							<Form.Control 
+								type='swedish-name' 
+								placeholder='Swedish name' 
+								value={swedishName} 
+								onChange={(e) => setSwedishName(e.target.value)} />
 						</Form.Group>
 					</Col>
 				</Row>
 
 				<Row>
 					<Col>
-						<Form.Group className="station-form" controlId="formFinnishAddress">
+						<Form.Group className='station-form' controlId='formFinnishAddress'>
 							<Form.Label>Address in Finnish</Form.Label>
-							<Form.Control type="finnish-address" placeholder="Finnish address" value={finnishAdddress} onChange={(e) => setFinnishAddress(e.target.value)}/>
+							<Form.Control 
+								type='finnish-address' 
+								placeholder='Finnish address' 
+								value={finnishAdddress} 
+								onChange={(e) => setFinnishAddress(e.target.value)}/>
 						</Form.Group>
 					</Col>
 					<Col>
-						<Form.Group className="station-form" controlId="formSwedishAddress">
+						<Form.Group className='station-form' controlId='formSwedishAddress'>
 							<Form.Label>Address in Swedish</Form.Label>
-							<Form.Control type="swedish-address" placeholder="Swedish address" value={swedishAddress} onChange={(e) => setSwedishAddress(e.target.value)} />
+							<Form.Control 
+								type='swedish-address' 
+								placeholder='Swedish address' 
+								value={swedishAddress} 
+								onChange={(e) => setSwedishAddress(e.target.value)} />
 						</Form.Group>
 					</Col>
 				</Row>
 
 				<Row>
 					<Col>
-						<Form.Group className="station-form" controlId="formFinnishCity">
+						<Form.Group className='station-form' controlId='formFinnishCity'>
 							<Form.Label>City name in Finnish</Form.Label>
-							<Form.Control type="finnish-city" placeholder="Finnish city" value={finnishCity} onChange={(e) => setFinnishCity(e.target.value)} />
+							<Form.Control 
+								type='finnish-city' 
+								placeholder='Finnish city' 
+								value={finnishCity} 
+								onChange={(e) => setFinnishCity(e.target.value)} />
 						</Form.Group>
 					</Col>
 					<Col>
-						<Form.Group className="station-form" controlId="formSwedishCity">
+						<Form.Group className='station-form' controlId='formSwedishCity'>
 							<Form.Label>City name in Swedish</Form.Label>
-							<Form.Control type="swedish-city" placeholder="Swedish city" value={swedishCity} onChange={(e) => setSwedishCity(e.target.value)} />
+							<Form.Control 
+								type='swedish-city' 
+								placeholder='Swedish city' 
+								value={swedishCity} 
+								onChange={(e) => setSwedishCity(e.target.value)} />
 						</Form.Group>
 					</Col>
 				</Row>
 
 				<Row>
 					<Col>
-						<Form.Group className="station-form" controlId="formOperator">
+						<Form.Group className='station-form' controlId='formOperator'>
 							<Form.Label>Operator</Form.Label>
-							<Form.Control type="operator" placeholder="Operator" value={operator} onChange={(e) => setOperator(e.target.value)} />
+							<Form.Control 
+								type='operator' 
+								placeholder='Operator' 
+								value={operator} 
+								onChange={(e) => setOperator(e.target.value)} />
 						</Form.Group>
 					</Col>
 					<Col>
-						<Form.Group className="station-form" controlId="formCapacity">
+						<Form.Group className='station-form' controlId='formCapacity'>
 							<Form.Label>Station capacity</Form.Label>
-							<Form.Control type="capacity" placeholder="Capacity" value={capacity} onChange={(e) => setCapacity(e.target.value)} />
+							<Form.Control 
+								type='capacity' 
+								placeholder='Capacity' 
+								value={capacity} 
+								onChange={(e) => setCapacity(e.target.value)} />
 						</Form.Group>
 					</Col>
 				</Row>
 
 				<Row>
 					<Col>
-						<Form.Group className="station-form" controlId="formX">
+						<Form.Group className='station-form' controlId='formX'>
 							<Form.Label>Location (longitude)</Form.Label>
-							<Form.Control type="x" placeholder="X" value={x} onChange={(e) => setX(e.target.value)} />
+							<Form.Control 
+								type='x' 
+								placeholder='X' 
+								value={x} 
+								onChange={(e) => setX(e.target.value)} />
 						</Form.Group>
 					</Col>
 					<Col>
-						<Form.Group className="station-form" controlId="formY">
+						<Form.Group className='station-form' controlId='formY'>
 							<Form.Label>Location (latitude)</Form.Label>
-							<Form.Control type="y" placeholder="Y" value={y} onChange={(e) => setY(e.target.value)} />
+							<Form.Control 
+								type='y' 
+								placeholder='Y' 
+								value={y} 
+								onChange={(e) => setY(e.target.value)} />
 						</Form.Group>
 					</Col>
 				</Row>
 
-				<Button className="button-add" variant="warning" type="submit" onClick={createStationObject}>
+				<Button 
+					className='button-add'
+					id='button-add' 
+					variant='warning' 
+					type='submit' 
+					onClick={createStationObject}>
           Add station
 				</Button>
 			</Form>
