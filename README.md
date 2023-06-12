@@ -2,7 +2,14 @@
 
 This application provides data about journeys made with city bikes in the Helsinki Capital area in summer 2021 as well as the city bike stations.
 
-Users can view basic information about bike journeys and stations, and get detailed information about stations from the listing, including the amount of departures and returns.
+Users can:
+- view basic information about bike journeys (departure station, return station, distance in km, duration in min)
+- filter journeys by date and month
+- sort journeys by departure station, return station, distance and duration
+- view basic information about stations (name, address) 
+- view detailed information about stations (number of departures and returns, average length of journey departing from/ending at station)
+- search for stations
+- add stations to database
 
 ## :sparkles: Used technologies
 
